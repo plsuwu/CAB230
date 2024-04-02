@@ -14,7 +14,7 @@ interface Page {
 const NavigationD: FC = (): ReactElement => {
 	const [dropdownOpen, setDropdownOpen] = useState('');
 
-	// dismisses open dropdown by clicking outside its path
+	// dismiss open dropdown by clicking other section of the screen
 	const handleDismissClickout = (event: MouseEvent) => {
 		const path = event.composedPath();
 		const isClickInside = path.some((el: EventTarget) =>
@@ -25,13 +25,13 @@ const NavigationD: FC = (): ReactElement => {
 		}
 	};
 
-	// add/remove onclick listener to the dropdown on mount/destroy
+	// add/remove onclick listener to the dropdown on component mount/destroy
 	useEffect(() => {
 		document.addEventListener('click', handleDismissClickout);
 		return () => {
 			document.removeEventListener('click', handleDismissClickout);
 		};
-	}, []); // only run on mount or destroy
+	}, []); // only run this hook on mount/destroy
 
 	// dropdown toggle handler function
 	const handleClickDropdown = (parent: string) => {
@@ -54,11 +54,11 @@ const NavigationD: FC = (): ReactElement => {
 
 	return (
 		<>
-			<div className='bg-vol-mantle w-full'>
+			<div className='w-full bg-vol-mantle'>
 				<div className='flex w-max flex-col space-y-2 px-7 py-6'>
 					<Link to='/' className='transition-opacity duration-300 hover:opacity-55'>
 						<div className='mr-10 flex flex-row flex-wrap items-end justify-center space-x-4 text-3xl font-bold'>
-							<MdVolcano className='text-vol-orange text-5xl' />
+							<MdVolcano className='text-5xl text-vol-orange' />
 							<span>VolcanoDB</span>
 						</div>
 					</Link>
@@ -75,8 +75,8 @@ const NavigationD: FC = (): ReactElement => {
 								{page.children ?
 									<button
 										className={classNames(
-											dropdownOpen === page.name ? 'text-vol-peach dropdown' : '',
-											'hover:text-vol-peach active:text-vol-peach transition-color flex space-x-1 duration-300 ease-out'
+											dropdownOpen === page.name ? 'dropdown text-vol-peach' : '',
+											'transition-color flex space-x-1 rounded-md duration-300 ease-out hover:text-vol-peach'
 										)}
 										onClick={() => handleClickDropdown(page.name)}
 									>
@@ -90,15 +90,18 @@ const NavigationD: FC = (): ReactElement => {
 									</button>
 								:	<Link
 										to={page.href}
-										className='hover:text-vol-peach transition-color flex space-x-1 duration-300 ease-out'
+										className='transition-color flex space-x-1 duration-300 ease-out hover:text-vol-peach'
 									>
 										<span>{page.name}</span>
 									</Link>
 								}
 
-								{/* is it possible to fade this on `dropdownOpen` key change? */}
+								{/* -> fade this on in/out `dropdownOpen` key change
+                                        -   can either use HeadlessUI or find a way to do this without a package (prefer 2nd opt)
+                                    -> set up state handling to display `account info` && `log out` if a user is signed in
+                                */}
 								{dropdownOpen === page.name && page.children ?
-									<div className='dropdown bg-vol-crust border-vol-surface absolute mt-2 rounded-lg border bg-opacity-50 py-4 pl-6 pr-20 backdrop-blur-md'>
+									<div className='dropdown absolute min-w-36 rounded-lg border border-vol-surface bg-vol-crust bg-opacity-35 px-2 py-2 backdrop-blur-md'>
 										{page.children.map((child) => (
 											<ul>
 												<Link
@@ -111,7 +114,7 @@ const NavigationD: FC = (): ReactElement => {
 															page.children && child === page.children[0] ?
 																''
 															:	'mt-2',
-															'hover:text-vol-peach transition-color text-base italic duration-300 ease-out'
+															'transition-color w-full rounded-md px-4 py-1 text-sm duration-300 hover:bg-vol-surface hover:text-vol-peach'
 														)}
 													>
 														{child.name}

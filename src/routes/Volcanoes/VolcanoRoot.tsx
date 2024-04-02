@@ -1,53 +1,43 @@
 import { useState, useEffect } from 'react';
-import { mkGET } from '../../lib/mkGet';
-
-// probably a reusable component
-
-interface VolcanoData {
-	id: number;
-	name: string;
-	country: string;
-	region: string;
-	subregion: string;
-}
+// import type { VolcanoData } from '../../lib/types';
+import Accordion from '../../components/Accordion';
+import { getCountriesFromApi } from '../../lib/utils';
+import { volcanoes } from '../../lib/exampleData';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
-	const [loading, setLoading] = useState(true);
-	const [countriesData, setCountriesData] = useState<string[]>([]);
-	const [volcanoData, setVolcanoData] = useState<VolcanoData[]>([]);
-	const [error, setError] = useState(null);
+    const [loading, setLoading] = useState<boolean>(true);
+	const sortOptions: string[] = ['Country', 'Name']; // could do other sort options e.g 'activity', 'altitude', 'most populated', ...
+	const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
+
+	const [countries, setCountries] = useState<null | string[]>(null);
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 	useEffect(() => {
-		const fetchCountries = async (): Promise<void> => {
-			try {
-				const countries = await mkGET(`http://4.237.58.241:3000/countries`);
-                console.log(countries)
-				setCountriesData(countries);
-				setError(null);
-			} catch (err: any) {
-                console.log(err);
-				setError(err.message);
-				setCountriesData([]);
-			} finally {
-                setLoading(false);
-            }
-		};
+		async function fetchCountries() {
+			let countries = await getCountriesFromApi();
+			setCountries(countries);
 
-        fetchCountries();
+			console.log(countries);
+            await sleep(5000);      // simulated network delay
+            setLoading(false);
+		}
+
+		fetchCountries();
 	}, []);
 
 	return (
-		<div className=''>
-			<div className='text-3xl font-semibold'>Volcanoes:</div>
+		<>
 			<div>
-            {loading}, {error}
-				{/* make this a table */}
-                {countriesData.map((country) =>
-                    <li> {country} </li>
-                )}
+				<Accordion
+					title={volcanoAccordionTitle}
+                    loading={loading}
+					countries={countries}
+					volcanoes={volcanoes}
+					sortOptions={sortOptions}
+				/>
 			</div>
-		</div>
+		</>
 	);
 };
-
 export default VolcanoRoot;
