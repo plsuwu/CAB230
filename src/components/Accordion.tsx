@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useStore } from '../lib/cache/storeContext';
+import { useStore } from '../lib/store/storeContext';
 import { classNames } from '../lib/utils';
 import { RiArrowUpLine } from 'react-icons/ri';
 import { Country } from '../lib/types';

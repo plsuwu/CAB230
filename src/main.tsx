@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 // import { useStore } from './lib/cache/storeContext';
-import { StoreProvider } from './lib/cache/storeProvider';
+import { StoreProvider } from './lib/store/storeProvider';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import Root from './routes/Root';
@@ -53,9 +53,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<StoreProvider>
 			<RouterProvider router={router} />
 		</StoreProvider>
-	</React.StrictMode>
+	// </React.StrictMode>
 );

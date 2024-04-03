@@ -1,12 +1,10 @@
-// import { volcanoes, countries } from '../../lib/exampleData';
-
 import { useEffect } from 'react';
-import { useStore } from '../../lib/cache/storeContext';
-import { fetchFromApi } from '../../lib/cache/fetch';
+import { useStore } from '../../lib/store/storeContext';
+import { fetchFromApi } from '../../lib/store/fetch';
 import Accordion from '../../components/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
-	const { data, isLoading, setIsLoading, add, reset /*, remove,  */ } = useStore();
+	const { data, isLoading, setIsLoading, add, reset } = useStore();
 
 	const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
 
