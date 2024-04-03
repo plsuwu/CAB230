@@ -1,16 +1,19 @@
-export interface VolcanoData {
-	id: number;
-	name: string;
-	country: string;
-	region: string;
-	subregion: string;
-};
+/*      API req/res types       */
 
-export interface VolcanoIdData {
+
+// volcano API types
+
+export type Country = string;
+
+export interface Volcano {
+    id: number;
     name: string;
-    country: string;
+    country: Country;
     region: string;
     subregion: string;
+}
+
+export interface VolcanoDetail extends Volcano {
     last_eruption: string;
     summit: number;
     elevation: number;
@@ -21,3 +24,34 @@ export interface VolcanoIdData {
     population_30km: number;
     population_100km: number;
 }
+
+
+// user API types
+
+export interface RegisterRequest {
+    email: string;
+    password: string;
+}
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+}
+
+export interface RegisterResponse {
+    error?: boolean;
+    message: string;
+}
+
+interface LoginResponseSuccess {
+    token: string;
+    token_type: string;
+    expires_in: number;
+}
+
+interface LoginResponseError {
+    error: boolean;
+    message: string;
+}
+
+export type LoginResponse = LoginResponseError | LoginResponseSuccess;

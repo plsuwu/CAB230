@@ -1,7 +1,9 @@
-import { VolcanoData } from './types';
+import { Country, Volcano } from './types';
 
-export const countries: string[] = ['Japan', 'New Zealand', 'United States', 'Chile']; // replace with API data
-export const volcanoes: VolcanoData[] = [
+/*       replace with API responses      */
+
+export const countries: Country[] = ['Japan', 'New Zealand', 'United States', 'Chile'];
+export const volcanoes: Volcano[] = [
 	{
 		id: 1,
 		name: 'Abu',

@@ -1,9 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import './index.css';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
+
+import { useStore } from './lib/cache/storeContext';
+import { StoreProvider } from './lib/cache/storeProvider';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-
 import Root from './routes/Root';
 import ErrorPage from './routes/ErrorPage';
 import RootLanding from './routes/Landing/Landing';
@@ -52,6 +54,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<StoreProvider>
+			<RouterProvider router={router} />
+		</StoreProvider>
 	</React.StrictMode>
 );

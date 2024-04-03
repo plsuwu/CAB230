@@ -1,43 +1,39 @@
+// import { volcanoes, countries } from '../../lib/exampleData';
 import { useState, useEffect } from 'react';
-// import type { VolcanoData } from '../../lib/types';
+import { useStore } from '../../lib/cache/storeContext.ts';
 import Accordion from '../../components/Accordion';
-import { getCountriesFromApi } from '../../lib/utils';
-import { volcanoes } from '../../lib/exampleData';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
-    const [loading, setLoading] = useState<boolean>(true);
-	const sortOptions: string[] = ['Country', 'Name']; // could do other sort options e.g 'activity', 'altitude', 'most populated', ...
-	const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
+    const { data, isLoading, error } = useStore();
 
-	const [countries, setCountries] = useState<null | string[]>(null);
+    const sortOptions: string[] = ['Country', 'Name']; // could do other sort options e.g 'activity', 'altitude', 'most populated', ...
+    const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
 
-    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    // /* http://4.237.58.241:3000/volcanoes?country=${country} */
+    //
+    // let endpoint = 'volcanoes?country=${c}'
 
-	useEffect(() => {
-		async function fetchCountries() {
-			let countries = await getCountriesFromApi();
-			setCountries(countries);
+    // /* impl filterParams: */
+    //
+    // if (filterParams) {
+    //     endpoint = `${endpoint}&${filterParams}`;
+    // };
 
-			console.log(countries);
-            await sleep(5000);      // simulated network delay
-            setLoading(false);
-		}
 
-		fetchCountries();
-	}, []);
 
-	return (
-		<>
-			<div>
-				<Accordion
-					title={volcanoAccordionTitle}
-                    loading={loading}
-					countries={countries}
-					volcanoes={volcanoes}
-					sortOptions={sortOptions}
-				/>
-			</div>
-		</>
-	);
+
+    return (
+        <>
+            {isLoading ? ( <div>loading...</div> )
+            : (
+                <div>
+                    <Accordion
+                        title={volcanoAccordionTitle}
+                        sortOptions={sortOptions}
+                    />
+                </div>
+            )}
+        </>
+    );
 };
 export default VolcanoRoot;

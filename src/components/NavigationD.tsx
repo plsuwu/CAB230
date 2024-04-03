@@ -103,7 +103,7 @@ const NavigationD: FC = (): ReactElement => {
 								{dropdownOpen === page.name && page.children ?
 									<div className='dropdown absolute min-w-36 rounded-lg border border-vol-surface bg-vol-crust bg-opacity-35 px-2 py-2 backdrop-blur-md'>
 										{page.children.map((child) => (
-											<ul>
+											<ul key={child.id}>
 												<Link
 													to={child.href}
 													onClick={() => handleClickDropdown(page.name)}
