@@ -26,10 +26,11 @@ export function StoreProvider({ children }: StoreProviderProps) {
 		}));
 	};
 
+	// resets field content to empty array - change to completely erasing the record when time permits.
 	const reset = (key: string) => {
 		setData((prevData) => ({
 			...prevData,
-			[key]: [], // resets field content to empty array
+			[key]: [], 
 		}));
 	};
 
