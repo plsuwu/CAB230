@@ -18,7 +18,7 @@ export function useStore() {
 	const context = useContext(StoreContext);
 
 	if (context === undefined) {
-		throw new Error('`useStore()` must be used as a child of a `<StoreProvider>` wrapper');
+		throw new Error('`useStore()` hook cannot be used outside of a parent `<StoreProvider>` wrapper.');
 	}
 
 	return context;
