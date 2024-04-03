@@ -10,6 +10,8 @@ export default function Root() {
 				<NavigationD />
                 <Breadcrumbs />
 				<Outlet />
+                <div className='mb-72'></div>
+                {/* footer */}
 			</div>
 		</>
 	);

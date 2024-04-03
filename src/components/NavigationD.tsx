@@ -54,7 +54,7 @@ const NavigationD: FC = (): ReactElement => {
 
 	return (
 		<>
-			<div className='w-full bg-vol-mantle'>
+			<div className='w-full bg-vol-mantle shadow-lg'>
 				<div className='flex w-max flex-col space-y-2 px-7 py-6'>
 					<Link to='/' className='transition-opacity duration-300 hover:opacity-55'>
 						<div className='mr-10 flex flex-row flex-wrap items-end justify-center space-x-4 text-3xl font-bold'>
