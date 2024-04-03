@@ -1,64 +1,41 @@
-import { useState, useEffect } from 'react';
-import { StoreContext, useStore } from './storeContext';
-import { fetchFromApi } from './fetch';
-import { Country, Volcano } from '../types';
+import { useState } from 'react';
+import { StoreContext } from './storeContext';
 
 interface StoreProviderProps {
 	children: React.ReactNode;
 }
 
 export function StoreProvider({ children }: StoreProviderProps) {
-	const [data, setData] = useState<any>({
-		countries: [],
-		volcanoes: [],
-	});
-
+	const [data, setData] = useState<Record<string, any[]>>({});
 	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<any>(null);
+	const [error ] = useState<any>(null);
 
-    /* `React.ComponentState` (= <any>) not seem like the right type for country & volcano?? */
-    const addCountry = (country: Country) => {
-        setData((prevData: React.ComponentState) => ({
-            ...prevData,
-            countries: [...prevData.countries, country]
-        }));
-    };
+	const add = <T,>(key: string, item: T) => {
+		if (!data.hasOwnProperty(key)) {
+			setData((prevData) => ({
+				...prevData,
+				[key]: [...(prevData[key] || []), item],
+			}));
+		}
+	};
 
-    const addVolcano = (volcano: Volcano) => {
-        setData((prevData: React.ComponentState) => ({
-            ...prevData,
-            volcanoes: [...prevData.volcanoes, volcano]
-        }));
-    };
+	const remove = <T,>(key: string, identifier: (item: T) => boolean) => {
+		setData((prevData) => ({
+			...prevData,
+			[key]: prevData[key].filter((item) => !identifier(item)),
+		}));
+	};
 
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true);
-
-			try {
-				const response = await fetchFromApi('countries'); // tbi
-				setData(response);
-
-			} catch (error) {
-				setError(error);
-			} finally {
-
-                // log resulting data and/or errors
-                console.log(data);
-                if (error) {
-                    console.error(error);
-                }
-
-				setIsLoading(false);
-			}
-		};
-
-		fetchData();
-	}, []);
+	const reset = (key: string) => {
+		setData((prevData) => ({
+			...prevData,
+			[key]: [], // resets field content to empty array
+		}));
+	};
 
 	return (
-        <StoreContext.Provider value={{ data, setData, isLoading, error, addCountry, addVolcano }}>
-            {children}
-        </StoreContext.Provider>
-    );
+		<StoreContext.Provider value={{ data, isLoading, setIsLoading, error, add, remove, reset }}>
+			{children}
+		</StoreContext.Provider>
+	);
 }

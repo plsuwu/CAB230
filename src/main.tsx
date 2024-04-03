@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-import { useStore } from './lib/cache/storeContext';
+// import { useStore } from './lib/cache/storeContext';
 import { StoreProvider } from './lib/cache/storeProvider';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';

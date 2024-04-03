@@ -1,39 +1,50 @@
 // import { volcanoes, countries } from '../../lib/exampleData';
-import { useState, useEffect } from 'react';
-import { useStore } from '../../lib/cache/storeContext.ts';
+
+import { useEffect } from 'react';
+import { useStore } from '../../lib/cache/storeContext';
+import { fetchFromApi } from '../../lib/cache/fetch';
 import Accordion from '../../components/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
-    const { data, isLoading, error } = useStore();
+	const { data, isLoading, setIsLoading, add, reset /*, remove,  */ } = useStore();
 
-    const sortOptions: string[] = ['Country', 'Name']; // could do other sort options e.g 'activity', 'altitude', 'most populated', ...
-    const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
+	const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
 
-    // /* http://4.237.58.241:3000/volcanoes?country=${country} */
-    //
-    // let endpoint = 'volcanoes?country=${c}'
+	useEffect(() => {
+		console.log('pre-load: ', data);
 
-    // /* impl filterParams: */
-    //
-    // if (filterParams) {
-    //     endpoint = `${endpoint}&${filterParams}`;
-    // };
+		const fetchCountries = async (): Promise<void> => {
+			try {
+				const countries = await fetchFromApi('countries');
+                if (data.countries) {
+                    return;
+                } else {
+				    add('countries', countries);
+                }
+			} catch (error) {
+				console.error('failed country fetch: ', error);
+			} finally {
+				setIsLoading(false);
+				console.log('post-load: ', data);
+			}
+		};
+        if (!data.countries && !isLoading) {
+		    fetchCountries();
+        } else {
+            reset('countries');
+            fetchCountries();
+        }
+	}, []);
 
-
-
-
-    return (
-        <>
-            {isLoading ? ( <div>loading...</div> )
-            : (
-                <div>
-                    <Accordion
-                        title={volcanoAccordionTitle}
-                        sortOptions={sortOptions}
-                    />
-                </div>
-            )}
-        </>
-    );
+	return (
+		<>
+			{isLoading ?
+				<div>loading...</div>
+			:	<div>
+					<Accordion title={volcanoAccordionTitle} />
+				</div>
+			}
+		</>
+	);
 };
 export default VolcanoRoot;
