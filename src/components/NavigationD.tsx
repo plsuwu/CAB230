@@ -62,7 +62,6 @@ const NavigationD: FC = (): ReactElement => {
 							<span>VolcanoDB</span>
 						</div>
 					</Link>
-
 					<ul
 						role='list'
 						className='flex w-full flex-row items-center justify-start space-x-7 text-lg font-semibold'

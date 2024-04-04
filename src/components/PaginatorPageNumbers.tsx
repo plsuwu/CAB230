@@ -25,7 +25,6 @@ const PaginatorPageNumbers: React.FC<Pages> = ({ pages, currentPage, changePage 
 			for (let i = 0; i < pages.length; ++i) {
 				tmp.push(i);
 			}
-			console.log(tmp);
 
 			setPageCount(tmp);
 			setIsLoading(false);
@@ -39,13 +38,13 @@ const PaginatorPageNumbers: React.FC<Pages> = ({ pages, currentPage, changePage 
 					<div className='flex flex-row content-center items-center justify-center space-x-10 text-center text-xs'>
 						{pageCount.map((num) =>
 							num === currentPage ?
-								<button className='flex flex-1 flex-row space-x-1 p-1 items-center text-center w-[25px]'>
+								<button className='flex w-[25px] flex-1 flex-row items-center space-x-1 p-1 text-center'>
 									<div className='inline-flex text-xs'>[</div>
 									<div className='inline-flex text-[10px]'>{num}</div>
 									<div className='inline-flex text-xs'>]</div>
 								</button>
 							:	<button
-									className='flex flex-1 flex-row space-x-1 p-1 items-center w-[25px]'
+									className='flex w-[25px] flex-1 flex-row items-center space-x-1 p-1'
 									onClick={() => handleChangePage(num)}
 								>
 									<div className='inline-flex text-xs'></div>
