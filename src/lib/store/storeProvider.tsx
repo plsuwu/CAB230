@@ -5,7 +5,7 @@ interface StoreProviderProps {
 	children: React.ReactNode;
 }
 
-// will we actually store state for anything other thcountry/volcano data?
+// will we actually store state for anything other country/volcano data?
 // is storing user data here fine considering this (i assume) runs clientside?
 interface StoreData {
 	[key: string]: any[];
@@ -24,29 +24,20 @@ export function StoreProvider({ children }: StoreProviderProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
-	/**
-	 * adds a new item to specified key in store.
-	 *
-	 * @param {string} key - key in store to which item will be added.
-	 * @param {T} item - item to be added.
-	 * @template T - type of item.
-	 */
 	const add = useCallback(<T,>(key: string, item: T) => {
 		setIsLoading(true);
-		setData((prevData) => ({
-			...prevData,
-			[key]: [...(prevData[key] || []), item],
-		}));
+		setData((prevData) => {
+			const updatedData =
+				Array.isArray(prevData[key]) ? [...prevData[key], item] : [item];
+			return {
+				...prevData,
+				[key]: updatedData,
+			};
+		});
+
 		setIsLoading(false);
 	}, []);
 
-	/**
-	 * removes item identified by `identifier` function from specified key in store.
-	 *
-	 * @param {string} key - key in store from which item will be removed.
-	 * @param {(item: T) => boolean} identifier - a function that determines which item to remove.
-	 * @template T - type of items in array.
-	 */
 	const remove = useCallback(<T,>(key: string, identifier: (item: T) => boolean) => {
 		setIsLoading(true);
 		setData((prevData) => ({
@@ -56,11 +47,6 @@ export function StoreProvider({ children }: StoreProviderProps) {
 		setIsLoading(false);
 	}, []);
 
-	/**
-	 * resets value at specified key in store to empty array.
-	 *
-	 * @param {string} key - key in store to reset.
-	 */
 	const reset = useCallback((key: string) => {
 		setIsLoading(true);
 		setData((prevData) => ({
@@ -71,7 +57,9 @@ export function StoreProvider({ children }: StoreProviderProps) {
 	}, []);
 
 	return (
-		<StoreContext.Provider value={{ data, isLoading, setIsLoading, error, add, remove, reset }}>
+		<StoreContext.Provider
+			value={{ data, isLoading, setIsLoading, error, add, remove, reset }}
+		>
 			{children}
 		</StoreContext.Provider>
 	);

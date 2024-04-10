@@ -1,50 +1,49 @@
 import { useEffect } from 'react';
 import { useStore } from '../../lib/store/storeContext';
 import { fetchFromApi } from '../../lib/store/fetch';
-import { sleep } from '../../lib/utils';
-import Accordion from '../../components/Accordion';
+import { sleep } from '../../lib/utils/utils';
+import Accordion from '../../components/accordion/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
-	const { data, isLoading, setIsLoading, add } = useStore();
+    const { data, isLoading, setIsLoading, add } = useStore();
 
-	const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
+    const volcanoAccordionTitle: string = 'Global Catalog of Volcanoes';
 
-	useEffect(() => {
-		console.log('data @ preloader: ', data);
+    useEffect(() => {
+        console.log('data preload: ', data);
 
-		const fetchCountries = async (): Promise<void> => {
-			try {
-				const countries = await fetchFromApi('countries');
-				if (data.countries) {
-					return;
-				} else {
-					add('countries', countries);
-				}
-			} catch (error) {
-				console.error('failed country fetch: ', error);
-			} finally {
+        const fetchCountries = async (): Promise<void> => {
+            try {
+                const countries = await fetchFromApi('/countries');
+                if (data.countries) {
+                    return;
+                } else {
+                    add('countries', countries);
+                }
+            } catch (error) {
+                console.error('failed country fetch: ', error);
+            } finally {
+                setIsLoading(false);
+                await sleep(500);
 
-				setIsLoading(false);
-				await sleep(500);
-
-				console.log('data post-load: ', data);
-			}
-		};
-		if (!data.countries && !isLoading) {
+                console.log('data postload: ', data);
+            }
+        };
+        if (!data.countries && !isLoading) {
             setIsLoading(true);
-			fetchCountries();
-		}
-	}, []);
+            fetchCountries();
+        }
+    }, []);
 
-	return (
-		<>
-			{isLoading ?
-				<div>loading...</div>
-			:	<div className='w-full'>
-					<Accordion title={volcanoAccordionTitle} />
-				</div>
-			}
-		</>
-	);
+    return (
+        <>
+            {isLoading ?
+                <div>loading...</div>
+                : <div className='w-full'>
+                    <Accordion title={volcanoAccordionTitle} />
+                </div>
+            }
+        </>
+    );
 };
 export default VolcanoRoot;

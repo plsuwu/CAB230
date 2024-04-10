@@ -1,11 +1,6 @@
 import { Dispatch, SetStateAction, createContext, useContext } from 'react';
 
-/**
- * type definition for context of store used in React application.
- * this context provides access to mutable global state and mutation functions.
- *
- * @template T - the base type for items in data store.
- */
+// type def
 export interface StoreContextType<T = any> {
 	data: Record<string, T[]>;
 	isLoading: boolean;
@@ -19,20 +14,13 @@ export interface StoreContextType<T = any> {
 // init context with `undefined`
 export const StoreContext = createContext<StoreContextType<any> | undefined>(undefined);
 
-/**
- * hook to access store context.
- * ensures that context is used within a component tree that has a `StoreProvider`.
- *
- * @template T - The type of item in store.
- * @throws Error if `useStore` used outside of `StoreProvider`.
- * @returns the store context with access to mutable global state.
- */
+// global store hook
 export function useStore<T = any>() {
 	// useContext should match context type
 	const context = useContext<StoreContextType<T> | undefined>(StoreContext);
 
 	if (context === undefined) {
-		throw new Error('`useStore()` hook must be used within a `<StoreProvider>`.');
+		throw new Error('`useStore()` not inside `<StoreProvider>` wrapper.');
 	}
 
 	return context;

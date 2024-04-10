@@ -2,7 +2,7 @@ import { FC, ReactElement, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RiArrowDropUpFill } from 'react-icons/ri';
 import { MdVolcano } from 'react-icons/md';
-import { classNames } from '../lib/utils';
+import { classNames } from '../lib/utils/utils';
 
 interface Page {
 	id: number;

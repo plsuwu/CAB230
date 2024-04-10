@@ -3,6 +3,7 @@
 // volcano API types
 
 export type Country = string;
+export type Page = Country[];
 
 export interface Volcano {
 	id: number;
