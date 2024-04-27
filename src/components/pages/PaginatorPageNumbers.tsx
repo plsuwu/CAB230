@@ -36,7 +36,7 @@ const PaginatorPageNumbers: React.FC<Pages> = ({
         <>
             <div className='-md-px flex'>
                 {pageCount && (
-                    <div className='flex flex-row content-center items-center justify-center space-x-10 text-center text-xs'>
+                    <div className='flex flex-row content-center items-center justify-center space-x-2 text-center text-xs'>
                         {pageCount.map((num) =>
                             num === currentPage ?
                                 <button

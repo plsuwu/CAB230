@@ -5,8 +5,8 @@ interface SearchProps {
 }
 
 const Searchbox: React.FC<SearchProps> = ({ searchBuffer }): React.ReactElement => {
+
     const handleChangedInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
-        await sleep(100);
         searchBuffer(event.target.value);
     };
 

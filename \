@@ -8,7 +8,7 @@ interface StoreProviderProps {
 // will we actually store state for anything other country/volcano data?
 // is storing user data here fine considering this (i assume) runs clientside?
 interface StoreData {
-    [key: string]: any[];
+    [key: string]: unknown[];
 }
 
 export function StoreProvider({ children }: StoreProviderProps) {
@@ -29,7 +29,6 @@ export function StoreProvider({ children }: StoreProviderProps) {
         setIsLoading(false);
     }, []);
 
-    // these aren't really going to be used
     const remove = useCallback(<T,>(key: string, identifier: (item: T) => boolean) => {
         setIsLoading(true);
         setData((prevData) => ({

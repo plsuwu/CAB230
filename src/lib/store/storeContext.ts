@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, createContext, useContext } from 'react';
 
-// type def
+// type def -- move to lib/types.ts
 export interface StoreContextType<T = any> {
 	data: Record<string, T[]>;
 	isLoading: boolean;
 	setIsLoading: Dispatch<SetStateAction<boolean>>;
-	error: Error | null;
+	// error: Error | null;
 	add: (key: string, item: T) => void;
 	remove: (key: string, identifier: (item: T) => boolean) => void;
 	reset: (key: string) => void;

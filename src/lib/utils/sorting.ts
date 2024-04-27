@@ -24,13 +24,14 @@ export const handleSwapOrder = (
 	return sorted;
 };
 
-export function fzf(query: string, data: string[]): string[] {
+export function fzf<T>(query: string, data: T[], keyedItem: (item: T) => string): T[] {
 	query = query.toLowerCase();
 
-	const scoreItem = (item: string): number => {
+	const scoreItem = (item: T): number => {
 		let score = 0;
 		let queryIndex = 0;
-		const lowerItem = item.toLowerCase();
+		// const lowerItem = item.toLowerCase();
+        const lowerItem = keyedItem(item).toLowerCase();
 
 		for (
 			let i = 0;
@@ -53,17 +54,12 @@ export function fzf(query: string, data: string[]): string[] {
 		.map(({ item }) => item);
 }
 
-export const paginate = (array: string[], currentPage: number): string[][] => {
-	if (!array || array.length <= 0) {
-		// console.info('NO ARRAY LENGTH!');
+export const paginate = (array: string[], currentPage: number, pageLength: number): string[][] => {
+	if (!array || array.length < 1) {
 		return [['No results :(']];
 	}
 
-	// if (currentPage > array.length - 1) {
-	// 	return array;
-	// }
-
-	let pageLength = 10; // pass this as a param when working
+	// let pageLength = 10; // pass this as a param when working
 	let finalPage = Math.max(0, Math.floor(array.length / pageLength));
 	let paginatedCountries: string[][] = [];
 
