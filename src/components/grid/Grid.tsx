@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useStore } from '../../lib/store/storeContext';
-import { fetchFromApi } from '../../lib/store/fetch';
-import type { Volcano } from '../../lib/types';
+import { useStore, fetchFromApi, sleep } from '@/lib/index';
+import type { Volcano } from '@/lib/types';
 import { HiArrowLongRight } from 'react-icons/hi2';
 
 import { AgGridReact } from 'ag-grid-react';
 import { ICellRendererParams } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
-import { sleep } from '../../lib/utils/utils';
 import { Link } from 'react-router-dom';
 
 interface VolcanoGridProps {

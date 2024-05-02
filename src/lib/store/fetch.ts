@@ -1,12 +1,12 @@
-const apiUrl = 'http://4.237.58.241:3000'
+import { apiUrl } from "@/lib/index";
 
-export async function fetchFromApi(endpoint: string) {
+export const fetchFromApi = async (endpoint: string) => {
     const url = `${apiUrl}${endpoint}`;
+    try {
+        const response = await fetch(url);
+        return response.json();
+    } catch (err) {
 
-    // console.log('requesting data from endpoint @', url);
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;
+        console.log('ERR =>', err);
+    }
 }

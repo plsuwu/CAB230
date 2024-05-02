@@ -1,7 +1,6 @@
 // import { Disclosure } from '@headlessui/react';
-import { Volcano } from '../../lib/types';
-import { fetchFromApi } from '../../lib/store/fetch';
-import { useStore } from '../../lib/store/storeContext';
+import { Volcano } from '@/lib/types';
+import { useStore, fetchFromApi} from '@/lib/index';
 import { useEffect, useState } from 'react';
 
 interface AccordionRowProps {

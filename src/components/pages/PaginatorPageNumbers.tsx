@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useStore } from '../../lib/store/storeContext';
+import { useStore } from '@/lib/index';
 
 interface Pages {
     pages: string[][];

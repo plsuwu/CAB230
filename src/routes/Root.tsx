@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
-import NavigationD from '../components/NavigationD';
-import Breadcrumbs from '../components/Breadcrumbs';
+import NavigationD from '@/components/NavigationD';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export default function Root() {
 	return (

@@ -5,8 +5,6 @@ interface StoreProviderProps {
     children: React.ReactNode;
 }
 
-// will we actually store state for anything other country/volcano data?
-// is storing user data here fine considering this (i assume) runs clientside?
 interface StoreData {
     [key: string]: any[];
 }

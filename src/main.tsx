@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 // import { useStore } from './lib/cache/storeContext';
-import { StoreProvider } from './lib/store/storeProvider';
+import { StoreProvider } from '@/lib/index';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import Root from './routes/Root';
-import ErrorPage from './routes/ErrorPage';
-import RootLanding from './routes/Landing/Landing';
-import AccountLogin from './routes/User/Login';
-import AccountRegister from './routes/User/Register';
-import VolcanoRoot from './routes/Volcanoes/VolcanoRoot';
-import VolcanoSlug from './routes/Volcanoes/VolcanoSlug';
+import Root from '@/routes/Root';
+import ErrorPage from '@/routes/ErrorPage';
+import RootLanding from '@/routes/Landing/Landing';
+import AccountLogin from '@/routes/User/Login';
+import AccountRegister from '@/routes/User/Register';
+import VolcanoRoot from '@/routes/Volcanoes/VolcanoRoot';
+import VolcanoSlug from '@/routes/Volcanoes/VolcanoSlug';
 
 const router = createBrowserRouter([
 	{

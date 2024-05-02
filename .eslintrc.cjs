@@ -1,6 +1,17 @@
 module.exports = {
+	settings: {
+		'import/resolver': {
+			node: {
+				extensions: ['.ts', '.tsx', '.js', '.jsx'],
+			},
+			alias: {
+				extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.css', '.d.ts'],
+				map: [['@/*', './*']],
+			},
+		},
+	},
 	root: true,
-	env: { browser: true, es2020: true },
+	env: { browser: true, es2020: true, node: true },
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
@@ -8,11 +19,15 @@ module.exports = {
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
 	parser: '@typescript-eslint/parser',
-	plugins: ['react-refresh'],
+	parserOptions: {
+		ecmaFeatures: {
+			jsx: true,
+		},
+		exmaVersion: latest,
+		sourceType: module,
+	},
+	plugins: ['react-refresh', '@typescript-eslint'],
 	rules: {
-		'react-refresh/only-export-components': [
-			'warn',
-			{ allowConstantExport: true },
-		],
+		'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 	},
 };

@@ -5,7 +5,7 @@ import {
     RiArrowLeftDoubleLine,
     RiArrowRightDoubleLine,
 } from 'react-icons/ri';
-import PaginatorPageNumbers from './PaginatorPageNumbers';
+import PaginatorPageNumbers from '@/components/pages/PaginatorPageNumbers';
 
 interface PaginatorProps {
     pages: string[][];

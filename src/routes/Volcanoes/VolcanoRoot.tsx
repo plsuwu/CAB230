@@ -1,10 +1,8 @@
 import { useState,useEffect } from 'react';
-import { useStore } from '../../lib/store/storeContext';
-import { fetchFromApi } from '../../lib/store/fetch';
-import { sleep } from '../../lib/utils/utils';
-import VolcanoGrid from '../../components/grid/Grid';
-import Accordion from '../../components/accordion/Accordion';
-// import Accordion from '../../components/accordion/Accordion';
+import { useStore } from '@/lib/index';
+import { fetchFromApi } from '@/lib/index';
+import VolcanoGrid from '@/components/grid/Grid';
+import Accordion from '@/components/accordion/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
     const { data, isLoading, setIsLoading, add } = useStore();

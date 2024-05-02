@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useStore } from '../../lib/store/storeContext';
-import { fzf, paginate, reOrder } from '../../lib/utils/sorting';
+import { useStore, fuzzySearch, paginate, reOrder } from '@/lib/index';
 
 // import AccordionRow from './AccordionRow';
-import AccordionList from './AccordionList';
-import AccordionSortButton from './AccordionSortButton';
-import SearchCountries from './../search/SearchCountries';
-import SearchVolcanoes from './../search/SearchVolcanoes';
-import Paginator from './../pages/Paginator';
+import AccordionList from '@/components/accordion/AccordionList';
+import AccordionSortButton from '@/components/accordion/AccordionSortButton';
+import SearchCountries from '@/components/search/SearchCountries';
+import SearchVolcanoes from '@/components/search/SearchVolcanoes';
+import Paginator from '@/components/pages/Paginator';
 // import VolcanoGrid from '../grid/Grid';
 
 interface AccordionProps {
@@ -33,7 +32,7 @@ const Accordion: React.FC<AccordionProps> = ({
     const orderOptions = ['d', 'a'];
     const [order, setOrder] = useState(orderOptions[0]);
 
-    let debounce: number | undefined;
+    let debounce: NodeJS.Timeout | undefined;
     async function search(input: string) {
         clearTimeout(debounce);
         debounce = setTimeout(async () => {
@@ -44,11 +43,11 @@ const Accordion: React.FC<AccordionProps> = ({
             let currentPageBackup: number = currentPage;
 
             let result: any[];
-            result = fzf<string>(input, countriesArray, (item) => item);
+            result = fuzzySearch<string>(input, countriesArray, (item) => item);
 
             // search & filter volcanos - something like:
             // ```
-            // result = fzf<Volcano>(input, data[activeCountry], (item) => `${item.name} ${item.id} {item.region} ${item.subregion}`);
+            // result = fuzzySearch<Volcano>(input, data[activeCountry], (item) => `${item.name} ${item.id} {item.region} ${item.subregion}`);
             // ```
 
             let paginatedResult: string[][] = paginate(result, 13);
