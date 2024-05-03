@@ -1,8 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-
-// import { useStore } from './lib/cache/storeContext';
 import { StoreProvider } from '@/lib/index';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
