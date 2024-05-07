@@ -1,4 +1,5 @@
 import { IoCheckmarkSharp } from 'react-icons/io5';
+import { SpiralSpinner } from 'react-spinners-kit';
 import { IoCloseSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 
@@ -6,7 +7,7 @@ interface RegisterStatusProps {
 	status: string | undefined;
 }
 
-const RegisterStatus: React.FC<RegisterStatusProps> = ({ status }): React.ReactElement => {
+const RegistrationStatus: React.FC<RegisterStatusProps> = ({ status }): React.ReactElement => {
 	return (
 		<>
 			{status !== undefined &&
@@ -18,18 +19,33 @@ const RegisterStatus: React.FC<RegisterStatusProps> = ({ status }): React.ReactE
 				:	<div>
 						<div className='mt-8 flex w-full flex-col items-center justify-around space-y-4 text-green-300'>
 							<IoCheckmarkSharp className='inline-flex text-2xl ' />
-                            <div className='flex flex-col space-y-2 items-center text-center justify-center'>
+							<div className='flex flex-col items-center justify-center space-y-2 text-center'>
 								<div className='inline-flex'>{status}</div>
-                                <Link className='text-vol-peach underline hover:opacity-50 transition-opacity duration-300 ease-out' to='/account/login'>Click here to continue to the login page.</Link>
-</div>
+								<Link
+									className='transition-all duration-300 ease-out text-blue-200 hover:text-vol-peach hover:opacity-100 opacity-75'
+									to='/account/login'
+								>
+									Click here to continue to the login page
+								</Link>
+							</div>
 						</div>
 					</div>)}
 
 			{!status && (
-				<div className='mt-8 inline-flex w-full items-center justify-around text-green-300'></div>
+
+					<div className='mt-8 flex flex-col w-full items-center justify-around space-y-8'>
+
+								<SpiralSpinner
+									size={100}
+									frontColor='#f1ae6a'
+									backColor='#c62810'
+									loading={1}
+								/>
+					<span className='opacity-50'>Loading...</span>
+				</div>
 			)}
 		</>
 	);
 };
 
-export default RegisterStatus;
+export default RegistrationStatus;

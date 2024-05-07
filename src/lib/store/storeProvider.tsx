@@ -37,12 +37,9 @@ export function StoreProvider({ children }: StoreProviderProps) {
         setIsLoading(false);
     }, []);
 
-    const reset = useCallback((key: string) => {
+    const reset = useCallback(() => {
         setIsLoading(true);
-        setData((prevData) => ({
-            ...prevData,
-            [key]: [],
-        }));
+        setData({});
         setIsLoading(false);
     }, []);
 

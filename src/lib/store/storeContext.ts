@@ -6,7 +6,7 @@ interface StoreContextType<T = any> {
 	isLoading: boolean;
 	setIsLoading: Dispatch<SetStateAction<boolean>>;
 	// error: Error | null;
-	add: (key: string, item: T) => void;
+	add: (key: string, items: T[]) => void;
 	remove: (key: string, identifier: (item: T) => boolean) => void;
 	reset: (key: string) => void;
 }

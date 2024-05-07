@@ -11,29 +11,32 @@ export interface Page {
     children?: Page[];
 }
 
-const Logo: React.FC = () => (
+const Logo: React.FC<{ title: string }> = ({ title }) => (
     <Link to='/' className='transition-opacity duration-300 hover:opacity-55'>
         <div className='mr-10 flex flex-row flex-wrap items-end justify-center space-x-4 text-3xl font-bold'>
             <MdVolcano className='text-5xl text-vol-orange' />
-            <span>VolcanoDB</span>
+            <span>{title}</span>
         </div>
     </Link>
 );
 
 const Navigation: React.FC = (): React.ReactElement => {
+
+    // these get drilled down into like 3 components lol
     const [open, setOpen] = useState<string>('');
     const deepRef = useRef<HTMLLIElement>(null);
+    const appTitle = "VolcanoDB";
 
-    // useRef to close the dropdown if the user clicks on a non-dropdown portion of the DOM
+    // useRef to close the dropdown if a click is detected on a non-dropdown
+    // portion of the DOM while the dropdown is open
     const clickOutside = (event: MouseEvent) => {
-        console.log(deepRef, event.target);
         if (deepRef.current && !deepRef.current.contains(event.target as Node)) {
             setOpen('');
         }
     };
 
-    // lifetime hook - attach/cleanup an event listener to the document to receive clicks from
-    // any element
+    // lifetime hook to attach/cleanup listener to the document to listen
+    // for all DOM clicks
     useEffect(() => {
         document.addEventListener('click', clickOutside);
         return () => {
@@ -41,6 +44,7 @@ const Navigation: React.FC = (): React.ReactElement => {
         };
     }, []);
 
+    // toggle open/closed state of a dropdown
     const toggleDropdown = (identifier: string) => {
         setOpen(open === identifier ? '' : identifier);
     };
@@ -49,13 +53,16 @@ const Navigation: React.FC = (): React.ReactElement => {
         <>
             <div className='w-full bg-vol-mantle shadow-lg'>
                 <div className='flex w-max flex-col space-y-2 px-7 py-6'>
-                    <Logo />
+                    <Logo title={appTitle} />
                     <PageList
                         ref={deepRef}
                         pages={pageDefinitions}
                         open={open}
                         toggleDropdown={toggleDropdown}
                     />
+                </div>
+                <div>
+
                 </div>
             </div>
         </>

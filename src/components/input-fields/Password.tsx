@@ -20,7 +20,7 @@ const PasswordInput: React.FC<PasswordProps> = ({ password, inputChange }): Reac
                     id='password'
                     name='password'
                     type='password'
-                    autoComplete='current-password'
+                    autoComplete='password'
                     value={password}
                     onChange={inputChange}
                     required

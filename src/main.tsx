@@ -2,46 +2,54 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { StoreProvider } from '@/lib/index';
 
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider, useLoaderData } from 'react-router-dom';
+import { countriesLoader } from '@/routes/Root';
 import Root from '@/routes/Root';
 import ErrorPage from '@/routes/ErrorPage';
 import RootLanding from '@/routes/Landing/Landing';
 import AccountLogin from '@/routes/User/Login';
+// import AccountLogout from '@/routes/User/Account';
 import AccountRegister from '@/routes/User/Register';
 import VolcanoRoot from '@/routes/Volcanoes/VolcanoRoot';
 import VolcanoSlug from '@/routes/Volcanoes/VolcanoSlug';
+import VolcanoCountry from './routes/Volcanoes/VolcanoCountry';
+import AccountDetails from '@/routes/User/Account';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Root />,
 		errorElement: <ErrorPage />,
+        loader: countriesLoader,
 		children: [
 			{
 				path: '/',
 				element: <RootLanding />,
 			},
 			{
-				path: '/volcanoes',
+				path: 'volcanoes',
 				element: <VolcanoRoot />,
-				children: [
-					{
-						path: '/volcanoes/:id',
-						element: <VolcanoSlug />,
-					},
-				],
+
 			},
 			{
-				path: '/account',
+				path: 'volcanoes/:country/:id',
+				element: <VolcanoSlug />,
+			},
+			{
+				path: 'account',
 				element: <Outlet />,
 				children: [
 					{
-						path: '/account/register',
+						path: 'register',
 						element: <AccountRegister />,
 					},
 					{
-						path: '/account/login',
+						path: 'login',
 						element: <AccountLogin />,
+					},
+					{
+						path: 'me',
+						element: <AccountDetails />,
 					},
 				],
 			},
@@ -50,9 +58,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-	// <React.StrictMode>
-		<StoreProvider>
-			<RouterProvider router={router} />
-		</StoreProvider>
-	// </React.StrictMode>
+	<StoreProvider>
+		<RouterProvider router={router} />
+	</StoreProvider>
 );

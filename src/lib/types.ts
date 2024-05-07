@@ -1,6 +1,4 @@
-/*      API req/res types       */
-
-// volcano API types
+// Volcano/Country types
 
 export type Country = string;
 export type Page = Country[];
@@ -13,16 +11,22 @@ export interface Volcano {
 	subregion: string;
 }
 
+export interface Cookie {
+	expires_in: number | null;
+	token: string | null;
+	token_type: string | null;
+};
+
 export interface VolcanoDetail extends Volcano {
 	last_eruption: string;
 	summit: number;
 	elevation: number;
 	latitude: string;
 	longitude: string;
-	population_5km: number;
-	population_10km: number;
-	population_30km: number;
-	population_100km: number;
+	population_5km?: number;
+	population_10km?: number;
+	population_30km?: number;
+	population_100km?: number;
 }
 
 // user API types

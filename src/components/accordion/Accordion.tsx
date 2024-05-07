@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useStore, fuzzySearch, paginate, reOrder } from '@/lib/index';
-
-// import AccordionRow from './AccordionRow';
 import AccordionList from '@/components/accordion/AccordionList';
 import AccordionSortButton from '@/components/accordion/AccordionSortButton';
 import SearchCountries from '@/components/search/SearchCountries';
 import SearchVolcanoes from '@/components/search/SearchVolcanoes';
 import Paginator from '@/components/pages/Paginator';
-// import VolcanoGrid from '../grid/Grid';
 
 interface AccordionProps {
     title: string;
@@ -23,10 +20,8 @@ const Accordion: React.FC<AccordionProps> = ({
     setActiveCountry,
 }): React.ReactElement => {
     const { data, isLoading, setIsLoading } = useStore();
-
     const [countriesArray, setCountriesArray] = useState<string[]>([]);
     const [searchTerm, setSearchTerm] = useState<string | undefined>(undefined);
-
     const [pages, setPages] = useState<string[][] | undefined>(undefined);
     const [currentPage, setCurrentPage] = useState(0);
     const orderOptions = ['d', 'a'];
@@ -39,9 +34,7 @@ const Accordion: React.FC<AccordionProps> = ({
             if (searchTerm !== input) {
                 setSearchTerm(input);
             }
-
             let currentPageBackup: number = currentPage;
-
             let result: any[];
             result = fuzzySearch<string>(input, countriesArray, (item) => item);
 
@@ -51,10 +44,7 @@ const Accordion: React.FC<AccordionProps> = ({
             // ```
 
             let paginatedResult: string[][] = paginate(result, 13);
-            // console.log(paginatedResult);
-
             setPages(paginatedResult);
-
             currentPageBackup >= paginatedResult.length ?
                 setCurrentPage(paginatedResult.length - 1)
                 : setCurrentPage(currentPageBackup);
@@ -69,10 +59,8 @@ const Accordion: React.FC<AccordionProps> = ({
 
     function handleReOrder() {
         setOrder(order === orderOptions[0] ? orderOptions[1] : orderOptions[0]);
-
         let reorderedCountries = reOrder(order, orderOptions, countriesArray);
         setCountriesArray(reorderedCountries);
-
         let paginated = paginate(countriesArray, 13);
         setPages(paginated);
     }
@@ -108,11 +96,11 @@ const Accordion: React.FC<AccordionProps> = ({
                             <div className='text-3xl font-bold'>{title}</div>
                             <div className=''>{tagline}</div>
                         </div>
-                        <div className='mt-12 flex w-full flex-row justify-around transition-all duration-500'>
+                        <div className='mt-12 flex flex-row justify-center items-center space-x-4 transition-all duration-500'>
                             <>
                                 <div>
                                     {(activeCountry && (
-                                        <SearchVolcanoes searchBuffer={(input) => search(input)} />
+                                    <></>
                                     )) ?? <SearchCountries searchBuffer={(input) => search(input)} />}
                                 </div>
                                 <div>
@@ -128,7 +116,7 @@ const Accordion: React.FC<AccordionProps> = ({
                             </>
                         </div>
                         <div className='flex w-full flex-col items-center transition-all duration-300'>
-                            <div className='mx-12 mt-4 w-full max-w-[65%] rounded-lg border border-vol-surface p-4 shadow-lg transition-all duration-300 ease-out'>
+                            <div className='shadow-xl mx-12 mt-4 w-full md:w-2/3 2xl:w-[40%] rounded-lg bg-vol-mantle border border-vol-surface p-4 transition-all duration-300 ease-out flex flex-col justify-center'>
                                 <div>
                                     {!activeCountry && (
                                         <Paginator

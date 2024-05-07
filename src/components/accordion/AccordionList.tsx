@@ -33,7 +33,7 @@ const AccordionList: React.FC<AccordionListProps> = ({
     };
 
     return (
-        <ul className='flex-0 flex flex-col content-normal justify-center space-y-0.5 transition-all duration-500'>
+        <ul className='flex flex-col self-center w-full justify-between items-center space-y-0.5 transition-all duration-500'>
             {/*
                 `activeCountry` defines which country has been clicked (if any), and sets the list state accordingly:
                     - if `activeCountry` contains a string, display the `expanded` component
@@ -53,8 +53,8 @@ const AccordionList: React.FC<AccordionListProps> = ({
                         as='li'
                         key={index}
                         className={classNames(
-                            index % 2 === currentPage % 2 ? 'bg-vol-mantle/25' : 'bg-vol-surface/50',
-                            'flex w-full flex-col  items-center justify-around rounded-md p-1.5 transition-all duration-200 ease-in-out'
+                            index % 2 === currentPage % 2 ? 'bg-vol-crust/35' : 'bg-vol-crust',
+                            'flex w-full flex-col items-center justify-around rounded-md p-1.5 transition-all duration-200 ease-in-out'
                         )}
                     >
                         {({ open }) =>

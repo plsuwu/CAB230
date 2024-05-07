@@ -27,7 +27,7 @@ export const paginate = (array: string[], pageLength?: number | undefined): stri
     let last: number = paginatedCountries[finalPage].length;
     let first: number = paginatedCountries[0].length;
     if (last < first) {
-        // more efficient than push() ops in a `for` loop
+        // more efficient than push ops in a `for` loop
         paginatedCountries[finalPage].length = first;
         paginatedCountries[finalPage].fill(' ', last, first);
     }
