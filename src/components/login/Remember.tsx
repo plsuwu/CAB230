@@ -1,9 +1,3 @@
-
-// interface RememberProps {
-//     password: string;
-//     inputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-// }
-
 const LoginRemember: React.FC = (): React.ReactElement => {
     return (
         <>

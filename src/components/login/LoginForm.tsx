@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import EmailInput from '@/components/input-fields/Email';
 import PasswordInput from '@/components/input-fields/Password';
 import LoginRemember from './Remember';
@@ -26,6 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             [name]: value,
         }));
     };
+
 
     return (
         <div className='flex min-h-full flex-1 flex-col justify-center px-8 py-12'>

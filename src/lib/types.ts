@@ -27,6 +27,11 @@ export interface VolcanoDetail extends Volcano {
 	population_10km?: number;
 	population_30km?: number;
 	population_100km?: number;
+    [key: string]: string | number | undefined;
+}
+
+export interface VolcanoPopulationData {
+    populationDatapoint: number;
 }
 
 // user API types

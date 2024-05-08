@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import PopulationChart from './chart/PopulationChart';
 import { Map, Marker, Point } from 'pigeon-maps';
 import { fetchFromApi, useStore } from '@/lib';
 import { VolcanoDetail } from '@/lib/types';
@@ -71,12 +72,16 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 						<MapBackButton />
 					</div>
 					<div className='flex flex-row items-center justify-center self-center rounded-md'>
-						<div className='flex w-full flex-row items-center justify-between self-center rounded-md bg-vol-surface sm:w-[80%] xl:w-[60%]'>
-							<div className='m-4 rounded-md px-2'>
+						<div className='flex w-[80%] flex-row items-center justify-between self-center rounded-md bg-vol-surface'>
+							<div className='mx-8 my-4 flex-1 rounded-md'>
 								<VolcanoDetailData detail={current} />
+
+								{(current[0].population_5km === 0 || current[0].population_5km === 0) && (
+									<PopulationChart detail={current} />
+								)}
 							</div>
-							<div className='my-4 w-[60%] rounded-md px-4'>
-								<Map height={600} defaultCenter={coordinates} defaultZoom={5.25}>
+							<div className='w-[60%] justify-self-end rounded-md py-6 px-4'>
+								<Map height={600} defaultCenter={coordinates} defaultZoom={5}>
 									<Marker width={40} anchor={coordinates} />
 								</Map>
 							</div>

@@ -1,9 +1,8 @@
 import { SpiralSpinner } from 'react-spinners-kit';
 import { useState, useEffect } from 'react';
-import { useStore, fetchFromApi, sleep } from '@/lib';
+import { useStore, fetchFromApi } from '@/lib';
 import VolcanoGrid from '@/components/grid/Grid';
 import Accordion from '@/components/accordion/Accordion';
-import { Outlet } from 'react-router';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
 	const { data, isLoading, setIsLoading, add } = useStore();
@@ -19,28 +18,28 @@ const VolcanoRoot: React.FC = (): React.ReactElement => {
 					return;
 				} else {
 					const countries: string[] = await fetchFromApi('/countries');
-					console.log(countries);
+					// console.log(countries);
 					add('countries', countries);
 				}
 			} catch (err) {
-				throw new Error(`error during fetch: ${err}`);
+				console.error(`error during fetch: ${err}`);
 			} finally {
 				setIsLoading(false);
-				console.log('data loaded: ', data);
+				// console.log('data loaded: ', data);
 			}
 		};
 		if (!data.countries && !isLoading) {
 			setIsLoading(true);
 			fetchCountries();
 		} else {
-			console.log('data in cache: ', data);
+			// console.log('data in cache: ', data);
 		}
 	}, [data]);
 
 	return (
 		<>
 			{isLoading ?
-				<div className='mt-48 flex h-full w-full flex-col items-center justify-center'>
+				<div className='flex h-full w-full flex-col items-center justify-center'>
 					<SpiralSpinner size={100} frontColor='#f1ae6a' backColor='#c62810' loading={true} />
 				</div>
 			:	<div className='w-full'>

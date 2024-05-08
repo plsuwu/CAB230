@@ -8,7 +8,7 @@ import { sleep, useStore } from '@/lib';
 
 
 const AccountDetails: React.FC = (): React.ReactElement => {
-    const { data, reset } = useStore();
+    const { reset } = useStore();
 	const [jwt, setJwt] = useState<Cookie | undefined>(undefined);
 	const [email, setEmail] = useState<string | undefined>(undefined);
 	const [parseErr, setParseErr] = useState<string | undefined>(undefined);

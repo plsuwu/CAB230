@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { StoreProvider } from '@/lib/index';
 
-import { createBrowserRouter, Outlet, RouterProvider, useLoaderData } from 'react-router-dom';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { countriesLoader } from '@/routes/Root';
 import Root from '@/routes/Root';
 import ErrorPage from '@/routes/ErrorPage';
@@ -12,7 +12,7 @@ import AccountLogin from '@/routes/User/Login';
 import AccountRegister from '@/routes/User/Register';
 import VolcanoRoot from '@/routes/Volcanoes/VolcanoRoot';
 import VolcanoSlug from '@/routes/Volcanoes/VolcanoSlug';
-import VolcanoCountry from './routes/Volcanoes/VolcanoCountry';
+import AccountLogout from '@/routes/User/Logout';
 import AccountDetails from '@/routes/User/Account';
 
 const router = createBrowserRouter([
@@ -29,7 +29,6 @@ const router = createBrowserRouter([
 			{
 				path: 'volcanoes',
 				element: <VolcanoRoot />,
-
 			},
 			{
 				path: 'volcanoes/:country/:id',
@@ -51,6 +50,10 @@ const router = createBrowserRouter([
 						path: 'me',
 						element: <AccountDetails />,
 					},
+                    {
+                        path: 'logout',
+                        element: <AccountLogout />,
+                    },
 				],
 			},
 		],

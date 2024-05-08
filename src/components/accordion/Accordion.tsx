@@ -3,7 +3,6 @@ import { useStore, fuzzySearch, paginate, reOrder } from '@/lib/index';
 import AccordionList from '@/components/accordion/AccordionList';
 import AccordionSortButton from '@/components/accordion/AccordionSortButton';
 import SearchCountries from '@/components/search/SearchCountries';
-import SearchVolcanoes from '@/components/search/SearchVolcanoes';
 import Paginator from '@/components/pages/Paginator';
 
 interface AccordionProps {
@@ -91,8 +90,8 @@ const Accordion: React.FC<AccordionProps> = ({
 
             {!isLoading && pages && (
                 <>
-                    <div className='flex flex-col content-center items-center justify-center overflow-hidden transition-all duration-500'>
-                        <div className='mt-12 flex flex-col items-center'>
+                    <div className='flex flex-col content-center items-center justify-center overflow-hidden transition-all duration-300'>
+                        <div className='flex flex-col items-center'>
                             <div className='text-3xl font-bold'>{title}</div>
                             <div className=''>{tagline}</div>
                         </div>

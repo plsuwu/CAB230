@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { MdVolcano } from 'react-icons/md';
 import PageList from '@/components/navigation/navbar/PageList';
-import { pageDefinitions } from '@/components/navigation/pageDefinitions';
+import { pageDefinitionsLoggedin, pageDefinitionsLoggedOut } from '@/components/navigation/pageDefinitions';
+import { parseTokenInfo } from '@/lib/utils/token';
+import Breadcrumbs from '@/components/navigation/navbar/Breadcrumbs';
 
 export interface Page {
     id: number;
@@ -21,6 +23,8 @@ const Logo: React.FC<{ title: string }> = ({ title }) => (
 );
 
 const Navigation: React.FC = (): React.ReactElement => {
+    const [navPages, setNavPages] = useState(pageDefinitionsLoggedOut);
+    const [jwt, setJwt] = useState('');
 
     // these get drilled down into like 3 components lol
     const [open, setOpen] = useState<string>('');
@@ -39,10 +43,20 @@ const Navigation: React.FC = (): React.ReactElement => {
     // for all DOM clicks
     useEffect(() => {
         document.addEventListener('click', clickOutside);
+
+        const token = parseTokenInfo();
+        if (token !== '') {
+            setJwt(token);
+            setNavPages(pageDefinitionsLoggedin);
+        } else {
+            setJwt(token);
+            setNavPages(pageDefinitionsLoggedOut);
+        }
+
         return () => {
             document.removeEventListener('click', clickOutside);
         };
-    }, []);
+    });
 
     // toggle open/closed state of a dropdown
     const toggleDropdown = (identifier: string) => {
@@ -56,10 +70,11 @@ const Navigation: React.FC = (): React.ReactElement => {
                     <Logo title={appTitle} />
                     <PageList
                         ref={deepRef}
-                        pages={pageDefinitions}
+                        pages={navPages}
                         open={open}
                         toggleDropdown={toggleDropdown}
                     />
+                    <Breadcrumbs />
                 </div>
                 <div>
 

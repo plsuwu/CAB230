@@ -34,7 +34,7 @@ export const parseTokenInfo = () => {
 						return '';
 					}
 
-                    console.warn('found valid token');
+                    // console.warn('found valid token');
 					return jwt.token;
 				}
 			}
@@ -44,7 +44,7 @@ export const parseTokenInfo = () => {
 		}
 	}
 
-    console.error('no token stored');
+    // console.error('no token stored');
 	return '';
 };
 

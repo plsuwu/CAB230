@@ -3,19 +3,13 @@ import { postToApi, sleep, useStore } from '@/lib';
 import { LoginForm, LoginStatus } from '@/components/login';
 import { Link, useNavigate } from 'react-router-dom';
 import parseToken from '@/lib/utils/token';
-import { Cookie } from '@/lib/types';
 
 
 const AccountLogin: React.FC = (): React.ReactElement => {
-    const { data, reset } = useStore();
+    const { reset } = useStore();
 	const [formDataL, setFormDataL] = useState({ email: '', password: '' });
 	const [loginResult, setLoginResult] = useState<string | undefined>(undefined);
 	const [loginRequested, setLoginRequested] = useState<boolean>(false);
-	const [headers, setHeaders] = useState<Cookie>({
-		expires_in: null,
-		token: null,
-		token_type: null,
-	});
 
     const navigate = useNavigate();
 
@@ -65,6 +59,7 @@ const AccountLogin: React.FC = (): React.ReactElement => {
 	};
 	return (
 		<>
+        <div>
 			<div className='mt-24 flex h-full w-full flex-col items-center justify-center text-3xl font-bold'>
 				<div>Login</div>
 			</div>
@@ -82,6 +77,7 @@ const AccountLogin: React.FC = (): React.ReactElement => {
 					</Link>
 				</div>
 			)}
+</div>
 		</>
 	);
 };

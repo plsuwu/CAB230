@@ -1,7 +1,6 @@
 import { IoCheckmarkSharp } from 'react-icons/io5';
 import { IoCloseSharp } from 'react-icons/io5';
 import { SpiralSpinner } from 'react-spinners-kit';
-import { redirect } from 'react-router-dom';
 
 interface LoginStatusProps {
 	status: string | undefined;

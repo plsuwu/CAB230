@@ -12,7 +12,7 @@ const AccountRegister: React.FC = (): React.ReactElement => {
 	const submitRegister = async (event: React.FormEvent) => {
 		event.preventDefault();
 
-        setRegisterRequested(true);
+		setRegisterRequested(true);
 		setRegisterResult(undefined);
 		setMatching(undefined);
 
@@ -31,7 +31,6 @@ const AccountRegister: React.FC = (): React.ReactElement => {
 		try {
 			const result: void | Response = await postToApi(endpoint, data);
 			if (result) {
-
 				switch (result.status) {
 					case 409:
 						setRegisterResult('An account with this email already exists.');
@@ -56,30 +55,30 @@ const AccountRegister: React.FC = (): React.ReactElement => {
 
 	return (
 		<>
-			<div className='mt-24 flex h-full w-full flex-col items-center justify-center text-3xl font-bold'>
-				<div>Register</div>
-			</div>
+			<div>
+				<div className='mt-24 flex h-full w-full flex-col items-center justify-center text-3xl font-bold'>
+					<div>Register</div>
+				</div>
 
-			<RegistrationForm
-				submitRegister={submitRegister}
-				formDataR={formDataR}
-				setFormDataR={setFormDataR}
-				matching={matching}
-				setMatching={setMatching}
-			/>
+				<RegistrationForm
+					submitRegister={submitRegister}
+					formDataR={formDataR}
+					setFormDataR={setFormDataR}
+					matching={matching}
+					setMatching={setMatching}
+				/>
 
-            {registerRequested && (
-                <RegistrationStatus status={registerResult} />
-            )}
+				{registerRequested && <RegistrationStatus status={registerResult} />}
 
-			<div className='mt-10 text-center text-sm'>
-				Already have an account?{' '}
-				<Link
-					to='/account/login'
-					className='transition-color font-bold duration-300 ease-out hover:text-vol-peach ml-1 text-vol-white'
-				>
-					Login here
-				</Link>
+				<div className='mt-10 text-center text-sm'>
+					Already have an account?{' '}
+					<Link
+						to='/account/login'
+						className='transition-color ml-1 font-bold text-vol-white duration-300 ease-out hover:text-vol-peach'
+					>
+						Login here
+					</Link>
+				</div>
 			</div>
 		</>
 	);
