@@ -11,7 +11,7 @@ interface StoreContextType<T = any> {
 /**
  * Creates and initializes the store context with an undefined inital value
  */
-export const StoreContext:React.Context<StoreContextType<any> | undefined> = createContext<StoreContextType<any> | undefined>(undefined);
+export const StoreContext: React.Context<StoreContextType<any> | undefined> = createContext<StoreContextType<any> | undefined>(undefined);
 
 
 /**

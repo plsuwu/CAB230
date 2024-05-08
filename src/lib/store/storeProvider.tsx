@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { StoreContext } from './storeContext';
+import { StoreContext } from '@/lib/store';
 
 
 interface StoreProviderProps {

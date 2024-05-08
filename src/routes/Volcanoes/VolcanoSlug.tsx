@@ -1,8 +1,8 @@
 import { fetchFromApi, useStore } from '@/lib';
-import { useParams } from 'react-router';
-import VolcanoMap from '@/components/map/VolcanoMap';
-import { useEffect } from 'react';
+import { VolcanoMap } from '@/components/map';
 import { Volcano } from '@/lib/types';
+import { useEffect } from 'react';
+import { useParams } from 'react-router';
 
 const VolcanoSlug: React.FC = (): React.ReactElement => {
 	const { data, add, isLoading, setIsLoading } = useStore();

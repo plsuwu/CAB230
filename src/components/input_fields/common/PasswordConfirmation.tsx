@@ -1,4 +1,4 @@
-import MatchingPasswords from "@/components/registration/MatchingPasswords";
+import { MatchingPasswords } from "@/components/input_fields";
 
 interface ConfirmationProps {
     matching: boolean | undefined;

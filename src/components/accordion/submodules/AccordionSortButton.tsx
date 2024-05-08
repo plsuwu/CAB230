@@ -1,5 +1,5 @@
 import { RiArrowDownLine } from 'react-icons/ri';
-import { classNames } from '@/lib/index';
+import { classNames } from '@/lib';
 
 
 interface AccordionSortButtonProps {

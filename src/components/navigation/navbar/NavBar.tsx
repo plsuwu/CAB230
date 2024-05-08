@@ -1,10 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { MdVolcano } from 'react-icons/md';
-import PageList from '@/components/navigation/navbar/PageList';
+import { Breadcrumbs, PageList } from '@/components/navigation';
 import { pageDefinitionsLoggedin, pageDefinitionsLoggedOut } from '@/components/navigation/pageDefinitions';
 import { parseTokenInfo } from '@/lib/utils/token';
-import Breadcrumbs from '@/components/navigation/navbar/Breadcrumbs';
 
 export interface Page {
     id: number;

@@ -1,7 +1,5 @@
 import { useEffect } from 'react';
-import EmailInput from '@/components/input_fields/Email';
-import PasswordInput from '@/components/input_fields/Password';
-import PasswordConfirmationInput from '@/components/input_fields/PasswordConfirmation';
+import { PasswordInput, PasswordConfirmationInput, EmailInput } from '@/components/input_fields';
 
 export type FormDataReg = {
 	email: string;

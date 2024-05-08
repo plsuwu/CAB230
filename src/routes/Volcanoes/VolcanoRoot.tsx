@@ -1,8 +1,8 @@
 import { SpiralSpinner } from 'react-spinners-kit';
 import { useState, useEffect } from 'react';
 import { useStore, fetchFromApi } from '@/lib';
-import VolcanoGrid from '@/components/accordion/volcano_grid/Grid';
-import Accordion from '@/components/accordion/Accordion';
+import { VolcanoGrid, Accordion } from '@/components/accordion';
+// import Accordion from '@/components/accordion/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
 	const { data, isLoading, setIsLoading, add } = useStore();

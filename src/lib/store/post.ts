@@ -1,4 +1,4 @@
-import { API_URL } from '@/lib/index';
+import { API_URL } from '@/lib';
 
 /**
  * Simple function to handle a POST request to a specific API endpoint ('`http://4.237.58.241:3000`')

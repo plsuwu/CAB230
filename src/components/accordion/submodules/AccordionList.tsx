@@ -1,9 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import { Dispatch, SetStateAction } from 'react';
-import { classNames } from '@/lib/index';
-
-import AccordionRowCollapsed from '@/components/accordion/states/AccordionRowCollapsed';
-import AccordionRowExpanded from '@/components/accordion/states/AccordionRowExpanded';
+import { classNames } from '@/lib';
+import { AccordionRowCollapsed, AccordionRowExpanded } from '@/components/accordion';
 
 interface AccordionListProps {
 	pages: string[][];

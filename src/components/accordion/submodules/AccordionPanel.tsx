@@ -1,6 +1,6 @@
 import { Volcano } from '@/lib/types';
-import { useStore, fetchFromApi} from '@/lib/index';
 import { useEffect, useState } from 'react';
+import { useStore, fetchFromApi } from '@/lib';
 
 interface AccordionRowProps {
 	activeCountry: string;
@@ -30,9 +30,9 @@ const AccordionPanel: React.FC<AccordionRowProps> = ({ activeCountry }): React.R
 			}
 		}
 
-        if (activeCountry) {
-            fetchVolcanoes(activeCountry);
-        }
+		if (activeCountry) {
+			fetchVolcanoes(activeCountry);
+		}
 	}, [activeCountry]);
 
 	return (

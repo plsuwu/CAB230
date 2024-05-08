@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Page } from '@/components/navigation/navbar/NavBar';
-import Dropdown from '@/components/navigation/navbar/Dropdown';
-import DropdownButton from '@/components/navigation/navbar/DropdownButton';
+import { Dropdown, DropdownButton } from '@/components/navigation/navbar';
 
 interface PageListProps {
     pages: Page[];

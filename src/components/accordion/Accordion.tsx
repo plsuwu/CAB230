@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useStore, fuzzySearch, paginate, reOrder } from '@/lib/index';
-import AccordionList from '@/components/accordion/AccordionList';
-import AccordionSortButton from '@/components/accordion/AccordionSortButton';
+import { AccordionList, AccordionSortButton } from '@/components/accordion';
 import SearchCountries from '@/components/search/SearchCountries';
 import Paginator from '@/components/pages/Paginator';
 

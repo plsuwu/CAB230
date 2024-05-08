@@ -12,7 +12,7 @@ interface PayloadBody {
  * @param {Response} result - the response object recieved from an API request
  * @returns {Promise<void>} - A promise that resolves once the token is stored
  */
-export default async function storeToken(result: Response): Promise<void> {
+export async function storeToken(result: Response): Promise<void> {
     localStorage.clear();
     const body = await result.json();
 

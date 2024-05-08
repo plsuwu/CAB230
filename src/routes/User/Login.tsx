@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { postToApi, sleep, useStore } from '@/lib';
-import { LoginForm, LoginStatus } from '@/components/login';
+import { LoginForm, LoginStatus } from '@/components/input_fields';
 import { Link, useNavigate } from 'react-router-dom';
-import parseToken from '@/lib/utils/token';
+import { postToApi, sleep, useStore, storeToken } from '@/lib';
 
 const AccountLogin: React.FC = (): React.ReactElement => {
 	const { reset } = useStore();
@@ -32,7 +31,7 @@ const AccountLogin: React.FC = (): React.ReactElement => {
 				switch (result.status) {
 					case 200:
 						try {
-							await parseToken(result);
+							await storeToken(result);
 							setLoginResult('Login success!');
 							reset(data);
 							await sleep(500);

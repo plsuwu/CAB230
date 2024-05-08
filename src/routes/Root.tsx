@@ -1,25 +1,24 @@
 import { Outlet } from 'react-router-dom';
-import NavigationD from '@/components/navigation/navbar/NavBar';
+import { NavBar, Footer } from '@/components/navigation';
 import { fetchFromApi } from '@/lib';
-import Footer from '@/components/navigation/Footer';
 
 export const countriesLoader = async (): Promise<any> => {
-	const countries: string[] = await fetchFromApi('/countries');
-	return { countries };
+    const countries: string[] = await fetchFromApi('/countries');
+    return { countries };
 };
 
 export default function Root() {
-	return (
-			<div className='flex h-screen flex-col'>
-				<div className='flex-1 flex flex-col'>
-					<NavigationD />
-				</div>
-				<div className='flex-1 min-h-full'>
-					<Outlet />
-				</div>
-				<div className='flex flex-0 flex-col'>
-				    <Footer />
-                </div>
-			</div>
-	);
+    return (
+        <div className='flex h-screen flex-col'>
+            <div className='flex flex-1 flex-col'>
+                <NavBar />
+            </div>
+            <div className='min-h-full flex-1'>
+                <Outlet />
+            </div>
+            <div className='flex-0 flex flex-col'>
+                <Footer />
+            </div>
+        </div>
+    );
 }

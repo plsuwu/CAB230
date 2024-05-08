@@ -1,4 +1,4 @@
-import { API_URL } from '@/lib/index';
+import { API_URL } from '@/lib';
 
 /**
  * Handles simple, unauthorized GET requests to an API endpoint ('`http://4.237.58.241:3000`')

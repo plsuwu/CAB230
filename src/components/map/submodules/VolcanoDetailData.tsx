@@ -1,8 +1,8 @@
-import { VolcanoDetail } from '@/lib/types';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IoLockClosed } from 'react-icons/io5';
-import VolcanoDataTable from './VolcanoDataTable';
+import { VolcanoDetail } from '@/lib/types';
+import { VolcanoDataTable } from '@/components/map';
 
 export interface VolcanoDetailDataProps {
 	detail: VolcanoDetail[];

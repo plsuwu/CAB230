@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import { VolcanoDetailDataProps } from '../VolcanoDetailData';
+import { VolcanoDetailDataProps } from '@/components/map';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { _DeepPartialObject } from 'node_modules/chart.js/dist/types/utils';
 import { SpiralSpinner } from 'react-spinners-kit';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
 const PopulationChart: React.FC<VolcanoDetailDataProps> = ({ detail }): React.ReactElement => {
 	const [dataReady, setDataReady] = useState(false);
 	const [chartData, setChartData] = useState<any>({});
 
 	useEffect(() => {
+
         // prevent the component trying to render undefined data by checking for valid data on mount,
         // and re-running the hook on `detail` state change
 		if (detail && detail.length > 0) {

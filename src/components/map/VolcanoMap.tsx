@@ -3,8 +3,7 @@ import PopulationChart from './chart/PopulationChart';
 import { Map, Marker, Point } from 'pigeon-maps';
 import { fetchFromApi, useStore } from '@/lib';
 import { VolcanoDetail } from '@/lib/types';
-import MapBackButton from './MapBackButton';
-import VolcanoDetailData from './VolcanoDetailData';
+import { MapBackButton, VolcanoDetailData } from '@/components/map';
 import { parseTokenInfo } from '@/lib/utils/token';
 import { fetchFromApiWithAuth } from '@/lib/store/fetch';
 
