@@ -1,9 +1,11 @@
 /**
- * splits an array into pages (an array of arrays)
+ * Divides an array of strings into a paginated 2D array, with each subarray representing a page of items.
+ * If no items exist, returns an array containing a single page with "No results".
+ * Optionally adjusts the number of items per page; defaults to 13 if not specified.
  *
- * @param {string[]} array - array of items to split into pages
- * @param {number} pageLength - number of pages to split `array` across
- * @returns {string[][]} an array containing nested arrays ('pages')
+ * @param {string[]} array - The array of strings to be paginated
+ * @param {number} [pageLength=13] - The number of items per page; defaults to 13
+ * @returns {string[][]} - A 2D array where each subarray contains the items for a specific page
  */
 export const paginate = (array: string[], pageLength?: number | undefined): string[][] => {
     if (!array || array.length < 1) {
@@ -27,7 +29,7 @@ export const paginate = (array: string[], pageLength?: number | undefined): stri
     let last: number = paginatedCountries[finalPage].length;
     let first: number = paginatedCountries[0].length;
     if (last < first) {
-        // more efficient than push ops in a `for` loop
+        // more efficient than repeated push operations in a `for` loop
         paginatedCountries[finalPage].length = first;
         paginatedCountries[finalPage].fill(' ', last, first);
     }

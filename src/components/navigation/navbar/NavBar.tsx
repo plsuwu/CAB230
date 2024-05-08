@@ -24,7 +24,7 @@ const Logo: React.FC<{ title: string }> = ({ title }) => (
 
 const Navigation: React.FC = (): React.ReactElement => {
     const [navPages, setNavPages] = useState(pageDefinitionsLoggedOut);
-    const [jwt, setJwt] = useState('');
+    const [, setJwt] = useState('');
 
     // these get drilled down into like 3 components lol
     const [open, setOpen] = useState<string>('');
@@ -33,7 +33,14 @@ const Navigation: React.FC = (): React.ReactElement => {
 
     // useRef to close the dropdown if a click is detected on a non-dropdown
     // portion of the DOM while the dropdown is open
-    const clickOutside = (event: MouseEvent) => {
+
+    /**
+     * listens for DOM element clicks, then checks whether a) the dropdown is open, and b) the DOM element being clicked is the dropdown.
+     * If the dropdown is in an open state and the dropdown's element tree was *not* the target of a click, the element containing the
+     * ref is toggled into a closed state.
+     * @param event - mouse click event
+     */
+    const clickOutside = (event: MouseEvent): void => {
         if (deepRef.current && !deepRef.current.contains(event.target as Node)) {
             setOpen('');
         }

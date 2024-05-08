@@ -9,7 +9,14 @@ const AccountRegister: React.FC = (): React.ReactElement => {
 	const [matching, setMatching] = useState<boolean | undefined>(undefined);
 	const [registerRequested, setRegisterRequested] = useState<boolean>(false);
 
-	const submitRegister = async (event: React.FormEvent) => {
+	/**
+	 * Handler to create a POSTable request from valid account data entered by a user &
+	 * reads the response to determine serverside validity.
+	 * @async
+	 * @param {React.FormEvent} event - the form submission event
+	 * @returns {Promise<void>} produces side effects that will set this component's state
+	 */
+	const submitRegister = async (event: React.FormEvent): Promise<void> => {
 		event.preventDefault();
 
 		setRegisterRequested(true);

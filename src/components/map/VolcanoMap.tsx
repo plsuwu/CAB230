@@ -15,7 +15,7 @@ interface VolcanoMapProps {
 
 const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElement => {
 	const { data, add } = useStore();
-	const idStr = id.toString();
+	const idStr: string = id.toString();
 	const [coordinates, setCoordinates] = useState<Point | undefined>(undefined);
 	const [current, setCurrent] = useState<VolcanoDetail[] | undefined>(undefined);
 
@@ -50,9 +50,9 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 			if (!data[idStr]) {
 				readInfo();
 			} else {
-				setCurrent(data[idStr]);
+				setCurrent(data[idStr] as VolcanoDetail[]);
 
-				setCoordinates([Number(data[idStr][0].latitude), Number(data[idStr][0].longitude)]);
+				setCoordinates([Number((data[idStr][0] as VolcanoDetail).latitude), Number((data[idStr][0] as VolcanoDetail).longitude)]);
 				console.log(current);
 			}
 		}
@@ -76,7 +76,7 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 							<div className='mx-8 my-4 flex-1 rounded-md'>
 								<VolcanoDetailData detail={current} />
 
-								{(current[0].population_5km === 0 || current[0].population_5km === 0) && (
+								{(current[0].population_5km === 0 || current[0].population_5km) && (
 									<PopulationChart detail={current} />
 								)}
 							</div>

@@ -1,6 +1,6 @@
-import EmailInput from '@/components/input-fields/Email';
-import PasswordInput from '@/components/input-fields/Password';
-import LoginRemember from './Remember';
+import EmailInput from '@/components/input_fields/Email';
+import PasswordInput from '@/components/input_fields/Password';
+import LoginRemember from '@/components/login/LoginRemember';
 
 export type FormDataLogin = {
     email: string;

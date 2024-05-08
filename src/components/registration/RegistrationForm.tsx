@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import EmailInput from '@/components/input-fields/Email';
-import PasswordInput from '@/components/input-fields/Password';
-import PasswordConfirmationInput from '@/components/input-fields/PasswordConfirmation';
+import EmailInput from '@/components/input_fields/Email';
+import PasswordInput from '@/components/input_fields/Password';
+import PasswordConfirmationInput from '@/components/input_fields/PasswordConfirmation';
 
 export type FormDataReg = {
 	email: string;
@@ -24,11 +24,23 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({
 	matching,
 	setMatching,
 }): React.ReactElement => {
+
+    /**
+     * determines whether a user successfully confirmed their password entry while registering
+     * @param {string} a - string currently bound to the 'password' field
+     * @param {string} b - string current bound to the 'confirmation' field
+     * @returns {boolean} true if the two fields contain matching strings, false otherwise
+     */
 	const match = (a: string, b: string): boolean => {
 		return a === b ? true : false;
 	};
 
-	const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    /**
+     * @param {React.ChangeEvent<HTMLInputElement>} event - a change event for the input element
+     * @returns {void} side effect that sets the form data state
+     */
+	const inputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		const { name, value } = event.target;
 		setFormDataR((prevData) => ({
 			...prevData,

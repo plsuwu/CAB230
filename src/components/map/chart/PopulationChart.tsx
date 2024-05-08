@@ -12,6 +12,8 @@ const PopulationChart: React.FC<VolcanoDetailDataProps> = ({ detail }): React.Re
 	const [chartData, setChartData] = useState<any>({});
 
 	useEffect(() => {
+        // prevent the component trying to render undefined data by checking for valid data on mount,
+        // and re-running the hook on `detail` state change
 		if (detail && detail.length > 0) {
 			const population = detail.flatMap((data) => [
 				data.population_5km,
@@ -50,6 +52,7 @@ const PopulationChart: React.FC<VolcanoDetailDataProps> = ({ detail }): React.Re
 	}, [detail]);
 
 	if (!dataReady) {
+        // display a loader while waiting for data
 		return (
 			<div>
 				<SpiralSpinner size={100} frontColor='#f1ae6a' backColor='#c62810' loading={true} />

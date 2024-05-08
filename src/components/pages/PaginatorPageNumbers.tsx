@@ -11,7 +11,11 @@ const PaginatorPageNumbers: React.FC<Pages> = ({ pages, currentPage, changePage 
 	const { isLoading, setIsLoading } = useStore();
 	const [pageCount, setPageCount] = useState<number[] | undefined>(undefined);
 
-	function handleChangePage(pageNum: number) {
+    /**
+     * emits the page change event back to this component's parent.
+     * @param {number} pageNum - the number of the page a user has clicked on
+     */
+	function handleChangePage(pageNum: number): void {
 		changePage(pageNum);
 	}
 

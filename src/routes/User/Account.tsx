@@ -1,14 +1,13 @@
 import { Cookie } from '@/lib/types';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { IoEnterOutline } from "react-icons/io5";
+import { IoEnterOutline } from 'react-icons/io5';
 import { IoExitOutline } from 'react-icons/io5';
 import { SpiralSpinner } from 'react-spinners-kit';
 import { sleep, useStore } from '@/lib';
 
-
 const AccountDetails: React.FC = (): React.ReactElement => {
-    const { reset } = useStore();
+	const { reset } = useStore();
 	const [jwt, setJwt] = useState<Cookie | undefined>(undefined);
 	const [email, setEmail] = useState<string | undefined>(undefined);
 	const [parseErr, setParseErr] = useState<string | undefined>(undefined);
@@ -16,12 +15,20 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 
 	const navigate = useNavigate();
 
-	function nameBuilder(email: string) {
+	/**
+	 * Creates an identity for the user (a '`name`') that can be used on their account dashboard where the API
+	 * does not support a field for the user's name.
+	 * @param {string} email - an email string including an `@` character to split the string at
+	 * @returns {string} a string representing the user's identity
+	 */
+	function nameBuilder(email: string): string {
 		const name = email.split('@')[0];
 		const char = name.split('')[0].toUpperCase();
 		return char + name.slice(1);
 	}
 
+	/** Converts a JWT into the user's name, based on the name or word used before the `@` in their email.
+	 **/
 	function parseUserInfo() {
 		if (jwt?.token && jwt?.expires_in && jwt?.token_type) {
 			try {
@@ -43,6 +50,10 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 		}
 	}
 
+	/**
+	 * Checks for the presence of a locally stored JWT
+	 * @returns {boolean} True if a JWT is found and could be set to the component's state, otherwise false.
+	 */
 	function checkSession(): boolean {
 		const session = localStorage.getItem('SESSION');
 		if (session) {
@@ -65,10 +76,17 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 
 		return false;
 	}
-	async function handleLogout() {
+
+	/**
+	 * Logs a user out, clearing any JWTs in local storage & resetting the data store to clear
+	 * authorized data from the client's cache.
+	 * @async
+	 * @returns {Promise<void>} Navigates the user back to the `/account/login` page on completion.
+	 */
+	async function handleLogout(): Promise<void> {
 		setStatus('logout');
 		localStorage.clear();
-        reset('data');
+		reset('data');
 		await sleep(500);
 		return navigate('/account/login');
 	}
@@ -96,11 +114,11 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 							<div className='font-bold'>You must be logged in to view this page</div>
 
 							<button
-								className='mt-8 font-medium text-vol-white hover:text-vol-peach transition-all duration-200 ease-out flex flex-row items-center space-x-2'
+								className='mt-8 flex flex-row items-center space-x-2 font-medium text-vol-white transition-all duration-200 ease-out hover:text-vol-peach'
 								onClick={() => handleLogout()}
 							>
 								<div>Click here to return to login</div>
-                                <IoEnterOutline className='text-xl'/>
+								<IoEnterOutline className='text-xl' />
 							</button>
 						</div>
 					</>
@@ -126,19 +144,19 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 						<div className='mt-12 flex flex-col items-center justify-center space-y-4'>
 							<div className='text-xl text-vol-orange'>{parseErr}</div>
 							<button
-								className='mt-8 font-medium text-vol-white hover:text-vol-peach transition-all duration-200 ease-out flex flex-row items-center space-x-4'
+								className='mt-8 flex flex-row items-center space-x-4 font-medium text-vol-white transition-all duration-200 ease-out hover:text-vol-peach'
 								onClick={() => handleLogout()}
 							>
 								<div>Click here to return to login page</div>
 
-                                <IoEnterOutline className='text-xl' />
+								<IoEnterOutline className='text-xl' />
 							</button>
 						</div>
 					))}
 
 				{status === 'logout' ?
-					<div className='flex flex-col items-center justify-center w-full mt-12 space-y-8 text-vol-base'>
-                    <div>Returning to login page...</div>
+					<div className='mt-12 flex w-full flex-col items-center justify-center space-y-8 text-vol-base'>
+						<div>Returning to login page...</div>
 						<SpiralSpinner size={100} frontColor='#f1ae6a' backColor='#c62810' loading={true} />
 					</div>
 				:	<></>}

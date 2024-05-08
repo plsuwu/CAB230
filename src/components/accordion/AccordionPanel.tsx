@@ -1,4 +1,3 @@
-// import { Disclosure } from '@headlessui/react';
 import { Volcano } from '@/lib/types';
 import { useStore, fetchFromApi} from '@/lib/index';
 import { useEffect, useState } from 'react';
@@ -42,7 +41,7 @@ const AccordionPanel: React.FC<AccordionRowProps> = ({ activeCountry }): React.R
 
 			{!loadingVolcanoes && data[activeCountry] && (
 				<ul className='px-6'>
-					{data[activeCountry].map((volcano: Volcano) => (
+					{(data[activeCountry] as Volcano[]).map((volcano: Volcano) => (
 						<li
 							key={volcano.id}
 							className='flex w-full flex-row content-center justify-between pt-2'

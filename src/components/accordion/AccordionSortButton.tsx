@@ -58,7 +58,7 @@ const AccordionSortButton: React.FC<AccordionSortButtonProps> = ({
                             )}
                         >
 
-                            {/* hateful towards css and layout shift but this simply works */}
+                            {/* annoying css and layout shifting usually but this simply works */}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                     </div>

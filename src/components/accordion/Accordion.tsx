@@ -37,7 +37,7 @@ const Accordion: React.FC<AccordionProps> = ({
             let result: any[];
             result = fuzzySearch<string>(input, countriesArray, (item) => item);
 
-            // search & filter volcanos - something like:
+            // single-func search & filter for volcanoes & countries - something like:
             // ```
             // result = fuzzySearch<Volcano>(input, data[activeCountry], (item) => `${item.name} ${item.id} {item.region} ${item.subregion}`);
             // ```
@@ -67,8 +67,8 @@ const Accordion: React.FC<AccordionProps> = ({
     useEffect(() => {
         async function checkForData() {
             setIsLoading(true);
-            setCountriesArray(data.countries);
-            setPages(paginate(data.countries, 13));
+            setCountriesArray(data.countries as string[]);
+            setPages(paginate(data.countries as string[], 13));
             setIsLoading(false);
         }
 
@@ -78,8 +78,8 @@ const Accordion: React.FC<AccordionProps> = ({
     }, []);
 
     useEffect(() => {
-        setCountriesArray(data.countries);
-        setPages(paginate(data.countries, 13));
+        setCountriesArray(data.countries as string[]);
+        setPages(paginate(data.countries as string[], 13));
     }, [activeCountry]);
 
     return (

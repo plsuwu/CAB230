@@ -1,10 +1,9 @@
 /**
- * re-orders an array of strings into either ascending or descending order
- *
- * @param {string} currentOrder - currently set order (currently only 'a'/'ascending' || 'd'/'descending')
- * @param {string[]} orderOptions - array of available ordering options (also currently only `['a', 'd']`)
- * @param {string[]} countries - array of countries to sort
- * @returns {string[]} re-ordered `countries` array
+ * Reorders an array based on the specified order options
+ * @param {string} currentOrder - the order currently applied
+ * @param {string[]} orderOptions - an array of ordrering options (this could be a boolean instead)
+ * @param {string[]} countries - the array of items to be sorted
+ * @returns {string[]} an array of country names, resorted depending on the previously applied sort
  */
 export const reOrder = (currentOrder: string, orderOptions: string[], countries: string[]): string[] => {
     let sorted: string[];

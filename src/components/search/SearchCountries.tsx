@@ -3,6 +3,12 @@ interface SearchProps {
 }
 
 const SearchCountries: React.FC<SearchProps> = ({ searchBuffer }): React.ReactElement => {
+
+    /**
+     * Passes a search query back to this component's parent
+     * @async
+     * @param {React.ChangeEvent<HTMLInputElement>} event - input change event
+     */
     const handleChangedInput = async (event: React.ChangeEvent<HTMLInputElement>) => {
         searchBuffer(event.target.value);
     };

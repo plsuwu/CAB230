@@ -10,7 +10,11 @@ const RootLanding: React.FC = (): React.ReactElement => {
 	const [randomCountry, setRandomCountry] = useState<string | undefined>(undefined);
 	const [randomVolcano, setRandomVolcano] = useState<string | undefined>(undefined);
 
-	async function fetchRandom() {
+ /** Fetches a random volcano for an authed or unauthed user on the landing page.
+  * @async
+  * @returns {Promise<void>} Used on component mount to set the state of parameters used in this component's HTML.
+  */
+	async function fetchRandom(): Promise<void> {
 		const token = parseTokenInfo();
 		const num = Math.floor(Math.random() * 1000);
 		if (token !== '') {
@@ -40,13 +44,16 @@ const RootLanding: React.FC = (): React.ReactElement => {
 		<div className='flex h-full w-full flex-col items-center justify-center text-3xl font-semibold'>
 			<div className='text-6xl font-bold'>Volcano DB</div>
 			<div className='mt-4 flex flex-col items-center justify-center text-2xl'>
-				<div className='text-base font-normal'> <span>Just browsing?</span> Check out this volcano in <span className='text-md text-vol-peach font-semibold'> {randomCountry}</span>, named</div>
+				<div className='text-base font-normal'>
+					{' '}
+					<span>Just browsing?</span> Check out this volcano in{' '}
+					<span className='text-md font-semibold'> {randomCountry}</span>, named
+				</div>
 				<Link
-					className='group transition-all text-vol-peach duration-200 group-hover:text-vol-fawn hover:opacity-75'
-
+					className='group text-vol-peach transition-all duration-200 hover:opacity-75 group-hover:text-vol-fawn'
 					to={`/volcanoes/${randomCountry}/${randomId}`}
 				>
-					<span className='group text-3xl  transition-all duration-200 group-hover:text-vol-fawn'>
+					<span className='flex mt-8 group text-4xl  transition-all duration-200 group-hover:text-vol-fawn'>
 						{randomVolcano}
 					</span>{' '}
 					<span className='group transition-all duration-200 group-hover:text-vol-fawn'></span>

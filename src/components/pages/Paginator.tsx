@@ -17,16 +17,17 @@ const Paginator: React.FC<PaginatorProps> = ({ pages, prvPage, changePage }): Re
 	const [currentPage, setCurrentPage] = useState<number>(prvPage);
 	const [pageMinMax] = useState<number[]>([0, pages.length - 1]);
 
+    /**
+     * function to check the bounds of pages available to navigate to and from
+     * @param pageNum - the page a user is attempting to navigate to
+     */
 	const pageClick = (pageNum: number): void => {
 		if (pageNum >= pages.length || currentPage >= pages.length) {
-			// console.log(`received invalid pagenumber`);
 			return;
 		}
-
 		if (currentPage === pageNum) {
 			return;
 		}
-
 		setCurrentPage(pageNum);
 		if (pageNum < pages.length) {
 			changePage(pageNum);

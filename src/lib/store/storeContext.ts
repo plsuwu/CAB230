@@ -1,22 +1,26 @@
 import { Dispatch, SetStateAction, createContext, useContext } from 'react';
 
-// type def -- move to lib/types.ts
 interface StoreContextType<T = any> {
 	data: Record<string, T[]>;
 	isLoading: boolean;
 	setIsLoading: Dispatch<SetStateAction<boolean>>;
-	// error: Error | null;
 	add: (key: string, items: T[]) => void;
-	remove: (key: string, identifier: (item: T) => boolean) => void;
 	reset: (key: string) => void;
 }
 
-// init context with `undefined`
-export const StoreContext = createContext<StoreContextType<any> | undefined>(undefined);
+/**
+ * Creates and initializes the store context with an undefined inital value
+ */
+export const StoreContext:React.Context<StoreContextType<any> | undefined> = createContext<StoreContextType<any> | undefined>(undefined);
 
-// global store hook
-export function useStore<T = any>() {
-	// useContext should match context type
+
+/**
+ * Custom hook to access store context
+ * @template T Data type of context-managed items
+ * @returns {StoreContextType<T>} store context object
+ * @throws Throws if hook is used outside of a `<StoreProvider>` component
+ */
+export function useStore<T>(): StoreContextType<T> {
 	const context = useContext<StoreContextType<T> | undefined>(StoreContext);
 
 	if (context === undefined) {

@@ -9,6 +9,10 @@ const VolcanoSlug: React.FC = (): React.ReactElement => {
 	const { country, id } = useParams();
 
 	useEffect(() => {
+
+        /**
+         * Fetch array of country names from the API
+         * */
 		const refetchCountry = async (): Promise<void> => {
 			setIsLoading(true);
 			try {

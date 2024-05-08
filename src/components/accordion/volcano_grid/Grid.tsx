@@ -27,7 +27,7 @@ const VolcanoGrid: React.FC<VolcanoGridProps> = ({ country }): React.ReactElemen
 			type: 'rightAligned',
 			flex: 3,
 			cellRenderer: (props: ICellRendererParams) => {
-				// idk how to pull this out into its own component
+				// not sure how to pull this out into a component
 				return (
 					<>
 						<div className='flex w-full flex-row items-center justify-end'>
@@ -51,7 +51,12 @@ const VolcanoGrid: React.FC<VolcanoGridProps> = ({ country }): React.ReactElemen
 	const [loadingVolcanoes, setLoadingVolcanoes] = useState<boolean>(true);
 
 	useEffect(() => {
-		async function fetchVolcanoData(country: string) {
+        /**
+        * Loads an array of volcanoes for a specified country
+        * @param {string} country - selected country to load volcanoes for
+        * @returns {Promise<void>} creates side effect to set the component's state
+        */
+		async function fetchVolcanoData(country: string): Promise<void> {
 			setLoadingVolcanoes(true);
 			await sleep(100);
 			try {
@@ -63,13 +68,12 @@ const VolcanoGrid: React.FC<VolcanoGridProps> = ({ country }): React.ReactElemen
 				console.error(`issue while fetching volcanoes for ${country}: `, err);
 			} finally {
 				setLoadingVolcanoes(false);
-				return true;
 			}
 		}
 
 		if (!rowData) {
 			fetchVolcanoData(country);
-			setRowData(data[country]);
+			setRowData(data[country] as Volcano[]);
 		}
 	}, [country, data[country]]);
 

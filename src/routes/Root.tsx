@@ -14,7 +14,7 @@ export default function Root() {
 				<div className='flex-1 flex flex-col'>
 					<NavigationD />
 				</div>
-				<div className='flex-1 my-12 min-h-full'>
+				<div className='flex-1 min-h-full'>
 					<Outlet />
 				</div>
 				<div className='flex flex-0 flex-col'>
