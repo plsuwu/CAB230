@@ -14,7 +14,7 @@ const MapBackButton: React.FC = (): React.ReactElement => {
 			</div>
 			<IoReturnUpBack className='group transition-all duration-300 ease-out group-hover:text-vol-peach group-hover:opacity-55' />
 			<div className='group transition-all duration-300 ease-out group-hover:text-vol-peach group-hover:opacity-55'>
-				back to all countries
+				go back
 			</div>
 			<div className='group transition-all duration-300 ease-out group-hover:text-vol-peach group-hover:opacity-55'>
 				]

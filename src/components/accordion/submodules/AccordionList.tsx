@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react';
 import { Dispatch, SetStateAction } from 'react';
 import { classNames } from '@/lib';
 import { AccordionRowCollapsed, AccordionRowExpanded } from '@/components/accordion';
+import { useNavigate } from 'react-router';
 
 interface AccordionListProps {
 	pages: string[][];
@@ -18,6 +19,7 @@ const AccordionList: React.FC<AccordionListProps> = ({
 	setActiveCountry,
 	searchTerm,
 }): React.ReactElement => {
+    const navigate = useNavigate();
 	/**
 	 * Determines whether a country is currently selected, and if so, deactivates it. Otherwise, the country is activated.
 	 * @param {string} country - country that a user has clicked on
@@ -27,8 +29,10 @@ const AccordionList: React.FC<AccordionListProps> = ({
 		if (country !== activeCountry) {
 			setActiveCountry(undefined);
 			setActiveCountry(country);
+            navigate(`/volcanoes/${country}`);
 		} else {
 			setActiveCountry(undefined);
+            navigate('/volcanoes');
 		}
 	};
 

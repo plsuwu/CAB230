@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { IoEnterOutline } from 'react-icons/io5';
 import { IoExitOutline } from 'react-icons/io5';
 import { SpiralSpinner } from 'react-spinners-kit';
-import { sleep, useStore } from '@/lib';
+import { sleep, useStore, nameBuilder } from '@/lib';
 
 const AccountDetails: React.FC = (): React.ReactElement => {
 	const { reset } = useStore();
@@ -15,17 +15,7 @@ const AccountDetails: React.FC = (): React.ReactElement => {
 
 	const navigate = useNavigate();
 
-	/**
-	 * Creates an identity for the user (a '`name`') that can be used on their account dashboard where the API
-	 * does not support a field for the user's name.
-	 * @param {string} email - an email string including an `@` character to split the string at
-	 * @returns {string} a string representing the user's identity
-	 */
-	function nameBuilder(email: string): string {
-		const name = email.split('@')[0];
-		const char = name.split('')[0].toUpperCase();
-		return char + name.slice(1);
-	}
+
 
 	/** Converts a JWT into the user's name, based on the name or word used before the `@` in their email.
 	 **/

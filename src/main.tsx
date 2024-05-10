@@ -3,7 +3,7 @@ import './index.css';
 
 import { StoreProvider } from '@/lib';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import { countriesLoader } from '@/routes/Root';
+// import { countriesLoader } from '@/routes/Root';
 import Root from '@/routes/Root';
 import ErrorPage from '@/routes/ErrorPage';
 import RootLanding from '@/routes/Landing/Landing';
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Root />,
         errorElement: <ErrorPage />,
-        loader: countriesLoader,
+        // loader: countriesLoader,
         children: [
             {
                 path: '/',
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
             },
             {
                 path: 'volcanoes',
+                element: <VolcanoRoot />,
+            },
+            {
+                path: 'volcanoes/:country',
                 element: <VolcanoRoot />,
             },
             {

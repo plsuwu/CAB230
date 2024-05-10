@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import PopulationChart from './chart/PopulationChart';
 import { Map, Marker, Point } from 'pigeon-maps';
-import { fetchFromApi, useStore } from '@/lib';
+import { fetchFromApi, sleep, useStore } from '@/lib';
 import { VolcanoDetail } from '@/lib/types';
 import { MapBackButton, VolcanoDetailData } from '@/components/map';
 import { parseTokenInfo } from '@/lib/utils/token';
 import { fetchFromApiWithAuth } from '@/lib/store/fetch';
+import { SpiralSpinner } from 'react-spinners-kit';
 
 interface VolcanoMapProps {
 	country: string;
@@ -13,7 +14,7 @@ interface VolcanoMapProps {
 }
 
 const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElement => {
-	const { data, add } = useStore();
+	const { data, add, isLoading, setIsLoading } = useStore();
 	const idStr: string = id.toString();
 	const [coordinates, setCoordinates] = useState<Point | undefined>(undefined);
 	const [current, setCurrent] = useState<VolcanoDetail[] | undefined>(undefined);
@@ -45,21 +46,32 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 	};
 
 	useEffect(() => {
-		if (country && id) {
-			if (!data[idStr]) {
-				readInfo();
-			} else {
-				setCurrent(data[idStr] as VolcanoDetail[]);
+        async function loadPageData() {
+		    if (country && id) {
+		    	if (!data[idStr]) {
+		    		readInfo();
+		    	} else {
+		    		setCurrent(data[idStr] as VolcanoDetail[]);
+		    		setCoordinates([
+		    			Number((data[idStr][0] as VolcanoDetail).latitude),
+		    			Number((data[idStr][0] as VolcanoDetail).longitude),
+		    		]);
+		    		console.log(current);
+		    	}
+		    }
 
-				setCoordinates([Number((data[idStr][0] as VolcanoDetail).latitude), Number((data[idStr][0] as VolcanoDetail).longitude)]);
-				console.log(current);
-			}
-		}
+            setIsLoading(false);
+        }
+
+	    if (country && id && !isLoading) {
+            setIsLoading(true);
+            loadPageData();
+        }
 	}, [data[idStr]]);
 
 	return (
 		<div>
-			{current && (
+			{(current && (
 				<>
 					<div className='my-12 flex h-full w-full flex-col items-center justify-center '>
 						<>
@@ -79,7 +91,7 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 									<PopulationChart detail={current} />
 								)}
 							</div>
-							<div className='w-[60%] justify-self-end rounded-md py-6 px-4'>
+							<div className='w-[60%] justify-self-end rounded-md px-4 py-6'>
 								<Map height={600} defaultCenter={coordinates} defaultZoom={5}>
 									<Marker width={40} anchor={coordinates} />
 								</Map>
@@ -87,6 +99,12 @@ const VolcanoMap: React.FC<VolcanoMapProps> = ({ country, id }): React.ReactElem
 						</div>
 					</div>
 				</>
+			))}
+            {!current && (
+				<div className='my-12 flex flex-col h-full w-full mt-36 items-center justify-center '>
+
+						<SpiralSpinner size={100} frontColor='#f1ae6a' backColor='#c62810' loading={true} />
+                </div>
 			)}
 		</div>
 	);

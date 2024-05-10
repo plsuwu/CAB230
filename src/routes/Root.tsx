@@ -1,11 +1,29 @@
 import { Outlet } from 'react-router-dom';
 import { NavBar, Footer } from '@/components/navigation';
-import { fetchFromApi } from '@/lib';
+import { fetchFromApi, useStore } from '@/lib';
 
-export const countriesLoader = async (): Promise<any> => {
-    const countries: string[] = await fetchFromApi('/countries');
-    return { countries };
-};
+// export const countriesLoader = async (): Promise<any> => {
+    // const { data, isLoading, setIsLoading, add } = useStore();
+    // // const countries: string[] = await fetchFromApi('/countries');
+    //
+    // const fetchCountries = async () => {
+    //     if (!data['countries'] && !isLoading) {
+    //         setIsLoading(true);
+    //         try {
+    //             const countryList = await fetchFromApi('/countries');
+    //         } catch (err) {
+    //             console.error('issue with country fetch => ', err);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     }
+
+
+
+    // }
+    //
+    // return { countries };
+// };
 
 export default function Root() {
     return (

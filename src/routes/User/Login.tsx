@@ -31,10 +31,10 @@ const AccountLogin: React.FC = (): React.ReactElement => {
 				switch (result.status) {
 					case 200:
 						try {
-							await storeToken(result);
+							await storeToken(result); // pass successful login response to JWT storage function
 							setLoginResult('Login success!');
 							reset(data);
-							await sleep(500);
+							await sleep(500); // pause execution to allow user to read feedback
 							navigate('/account/me');
 						} catch (err) {
 							console.error('error while parsing auth token => ', err);
@@ -51,7 +51,7 @@ const AccountLogin: React.FC = (): React.ReactElement => {
 
 					default:
 						setLoginResult(
-							'An unknown issue occured during registration. Please try again later.'
+							'An unknown issue occurred during login. Please try again later.'
 						);
 						break;
 				}
