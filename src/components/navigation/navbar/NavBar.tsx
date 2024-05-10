@@ -34,7 +34,7 @@ const Navigation: React.FC = (): React.ReactElement => {
 	// portion of the DOM while the dropdown is open
 
 	/**
-	 * listens for DOM element clicks, then checks whether a) the dropdown is open, and b) the DOM element being clicked is the dropdown.
+	 * listens for DOM clicks, then checks whether a) the dropdown is open, and b) the DOM element being clicked is the dropdown.
 	 * If the dropdown is in an open state and the dropdown's element tree was *not* the target of a click, the element containing the
 	 * ref is toggled into a closed state.
 	 * @param event - mouse click event

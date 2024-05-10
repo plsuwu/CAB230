@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PopulationChart from './chart/PopulationChart';
 import { Map, Marker, Point } from 'pigeon-maps';
-import { fetchFromApi, sleep, useStore } from '@/lib';
+import { fetchFromApi, useStore } from '@/lib';
 import { VolcanoDetail } from '@/lib/types';
 import { MapBackButton, VolcanoDetailData } from '@/components/map';
 import { parseTokenInfo } from '@/lib/utils/token';

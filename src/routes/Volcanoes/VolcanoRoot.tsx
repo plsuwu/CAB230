@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useStore, fetchFromApi } from '@/lib';
 import { VolcanoGrid, Accordion } from '@/components/accordion';
 import { useParams } from 'react-router';
-// import Accordion from '@/components/accordion/Accordion';
 
 const VolcanoRoot: React.FC = (): React.ReactElement => {
 	const { data, isLoading, setIsLoading, add } = useStore();
@@ -59,4 +58,5 @@ const VolcanoRoot: React.FC = (): React.ReactElement => {
 		</>
 	);
 };
+
 export default VolcanoRoot;

@@ -2,8 +2,8 @@ import { fetchFromApi, fetchFromApiWithAuth, useStore, parseTokenInfo } from '@/
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ImageButton } from '@/components/landing';
-import AbuJapan from '/public/img/abu.png';
-import OkatainaNZ from '/public/img/okataina.png';
+import AbuJapan from '/img/abu.png';
+import OkatainaNZ from '/img/okataina.png';
 
 const RootLanding: React.FC = (): React.ReactElement => {
 	const { add } = useStore();
@@ -22,9 +22,8 @@ const RootLanding: React.FC = (): React.ReactElement => {
 		const token = parseTokenInfo();
 		const num = Math.floor(Math.random() * 1000);
 		if (token !== '') {
-			// console.log(num);
 			const volcano = await fetchFromApiWithAuth(`/volcano/${num}`, token);
-			add(num.toString(), new Array(volcano));
+			add(num.toString(), new Array(volcano)); // 'useStore' records require `{ key: string, item: any[] }`
 			setRandomCountry(volcano.country);
 			setRandomVolcano(volcano.name);
 			setRandomId(num);
@@ -34,7 +33,6 @@ const RootLanding: React.FC = (): React.ReactElement => {
 			setRandomCountry(volcano.country);
 			setRandomVolcano(volcano.name);
 			setRandomId(num);
-			// setRandom(num);
 		}
 	}
 
