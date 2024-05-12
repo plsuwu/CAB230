@@ -23,7 +23,7 @@ const Logo: React.FC<{ title: string }> = ({ title }) => (
 
 const Navigation: React.FC = (): React.ReactElement => {
 	const [navPages, setNavPages] = useState(pageDefinitionsLoggedOut);
-	const [, setJwt] = useState('');
+	const [_, setJwt] = useState('');
 
 	// these get drilled down into like 3 components lol
 	const [open, setOpen] = useState<string>('');

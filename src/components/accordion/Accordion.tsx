@@ -74,11 +74,6 @@ const Accordion: React.FC<AccordionProps> = ({
 		if (!pages && !isLoading) {
 			checkForData();
 		}
-	}, []);
-
-	useEffect(() => {
-		setCountriesArray(data.countries as string[]);
-		setPages(paginate(data.countries as string[], 13));
 	}, [activeCountry]);
 
 	return (

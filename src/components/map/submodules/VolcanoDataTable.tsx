@@ -45,7 +45,7 @@ const VolcanoDataTable: React.FC<VolcanoDataTableProps> = ({ detail }): React.Re
 			<div className='flex flex-row justify-between'>
 				<div>Elevation: </div>
 				<div>
-					<span className='text-lg font-semibold text-vol-white'>{detail[0].elevation}</span> m
+					<span className='text-lg font-semibold text-vol-white'>{detail[0].elevation}</span> ft
 				</div>
 			</div>
 			<div className='flex flex-row justify-between'>

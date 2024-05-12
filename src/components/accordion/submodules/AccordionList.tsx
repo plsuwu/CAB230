@@ -12,14 +12,9 @@ interface AccordionListProps {
 	searchTerm: string | undefined;
 }
 
-const AccordionList: React.FC<AccordionListProps> = ({
-	pages,
-	currentPage,
-	activeCountry,
-	setActiveCountry,
-	searchTerm,
-}): React.ReactElement => {
-    const navigate = useNavigate();
+const AccordionList: React.FC<AccordionListProps> = ({ pages, currentPage, activeCountry, setActiveCountry, searchTerm }): React.ReactElement => {
+	const navigate = useNavigate();
+
 	/**
 	 * Determines whether a country is currently selected, and if so, deactivates it. Otherwise, the country is activated.
 	 * @param {string} country - country that a user has clicked on
@@ -29,10 +24,10 @@ const AccordionList: React.FC<AccordionListProps> = ({
 		if (country !== activeCountry) {
 			setActiveCountry(undefined);
 			setActiveCountry(country);
-            navigate(`/volcanoes/${country}`);
+			navigate(`/volcanoes/${country}`);
 		} else {
 			setActiveCountry(undefined);
-            navigate('/volcanoes');
+			navigate('/volcanoes');
 		}
 	};
 
@@ -62,6 +57,10 @@ const AccordionList: React.FC<AccordionListProps> = ({
 						)}
 					>
 						{({ open }) =>
+                            /* *
+                             * -> 'no results' is a search query that returned 0 matches;
+                             * -> `' '` indicates a blank slot used for layout purposes
+                             */
 							country === 'No results' || country === ' ' ?
 								<>
 									<div className='transition-all duration-500'>
