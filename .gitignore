@@ -25,3 +25,5 @@ notes
 *.njsproj
 *.sln
 *.sw?
+
+build/
