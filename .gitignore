@@ -14,6 +14,8 @@ dist-ssr
 
 .env
 notes
+build/
+*/**/CAB230-DOCS/
 
 # Editor directories and files
 .vscode/*
@@ -26,4 +28,4 @@ notes
 *.sln
 *.sw?
 
-build/
+
