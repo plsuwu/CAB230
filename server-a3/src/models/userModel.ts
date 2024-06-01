@@ -9,12 +9,12 @@ import knexPkg from 'knex';
 export const knex = knexPkg(knexConf.production);
 
 export const User = {
-    findByEmail: async (email: string) => {
+    find: async (email: string) => {
         return knex('users').where({ email }).first();
     },
 
     create: async (user: { email: string; password: string }) => {
-        const [newUser] = await knex('users').insert(user).returning('*');
+        const [newUser] = await knex('users').insert(user);
         return newUser;
     },
 
@@ -26,12 +26,8 @@ export const User = {
         const user = await knex('users')
             .where({ email })
             .first()
-            .select(
-                ...restrict,
-                knex.raw('cast(dateOfBirth as char) as dateOfBirth')
-            );
+            .select(...restrict);
 
-        // console.log(user);
         return user;
     },
 
@@ -39,8 +35,7 @@ export const User = {
         const { email, firstName, lastName, dateOfBirth, address } = details;
         await knex('users')
             .where({ email })
-            .update({ firstName, lastName, dateOfBirth, address })
-            .returning('*');
+            .update({ firstName, lastName, dateOfBirth, address });
 
         return details;
     },

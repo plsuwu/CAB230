@@ -7,7 +7,7 @@ export interface CountryRow {
 }
 
 export const Countries = {
-    getCountriesList: async () => {
+    load: async () => {
         const rows = await knex('data')
             .distinct('country')
             .orderBy('country', 'asc');

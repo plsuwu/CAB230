@@ -42,6 +42,30 @@ export const loginSchema = z.object({
         .min(1, { message: __AUTH_INCOMPLETE_BODY.message }),
 });
 
+/* *
+*
+
+curl -X 'POST' --insecure -vvv \
+  'https://localhost:3000/favorites/mike%40gmail.com' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer your-jwt-token' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "action": "add",
+  "id": 1
+}'
+
+* */
+
+export const filterFavoritesSchema = z.object({
+    email: z.string({ message: "invalid filter option" }).email().optional(),
+});
+
+export const updateFavoritesSchema = z.object({
+    action: z.enum(['add', 'delete']),
+    id: z.coerce.number().positive().lt(1344),
+});
+
 export const getUserSchema = z.object({
     email: z.string().email(),
 });

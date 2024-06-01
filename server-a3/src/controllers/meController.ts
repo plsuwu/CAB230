@@ -7,7 +7,7 @@ export const getStudentDetails = async (
     next: NextFunction
 ) => {
    try {
-       const { name, student_number } = await Me.details();
+       const { name, student_number } = await Me.load();
         return res.status(200).json({ name, student_number });
    } catch (err) {
 

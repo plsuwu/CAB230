@@ -17,7 +17,7 @@ export const getVolcanoes = async (
 
         return res.status(200).json(volcanoes);
     } catch (err) {
-        console.error('[!]: Issue during register: ', err);
+        console.error('[!]: Issue during volcanoes fetch: ', err);
         next(err);
     }
 };

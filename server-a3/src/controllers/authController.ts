@@ -18,7 +18,7 @@ export const register = async (
 ) => {
     try {
         const { email, password } = req.body;
-        const exists = await User.findByEmail(email);
+        const exists = await User.find(email);
 
         if (exists) {
             const err = createServerError(
@@ -36,9 +36,11 @@ export const register = async (
             email,
             password: hash,
         });
+
         return res
             .status(__AUTH_REGISTER_USER_CREATED.status)
             .json({ message: __AUTH_REGISTER_USER_CREATED.message });
+
     } catch (err) {
         console.error('[!]: Issue during register: ', err);
         next(err);
@@ -52,7 +54,7 @@ export const login = async (
 ) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findByEmail(email);
+        const user = await User.find(email);
         if (!user) {
             const err = createServerError(
                 __AUTH_LOGIN_INCORRECT_FIELD.message,

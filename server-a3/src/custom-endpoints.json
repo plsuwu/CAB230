@@ -1,0 +1,242 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "version": "2.0.0",
+        "title": "Volcanoes around the world v2",
+        "description": "This API compliments the example endpoint documentation for CAB230 (Web Computing). It extends the REST endpoints with a `/favorites/{email}` endpoint, which takes GET and POST requests to perform a number of actions to allow a user to view, add and remove volcanoes from a list of their favorite volcanoes."
+    },
+    "components": {
+        "schemas": {
+            "UserNotFound": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "User not found."
+                    }
+                }
+            },
+            "FavoriteVolcanoNotFound": {
+                "type": "object",
+                "properties": {
+                    "error": {
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Cannot delete volcano with ID '{id}': Volcano not in this user's favorites."
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/favorites/{email}": {
+            "get": {
+                "tags": ["Profile"],
+                "description": "Returns an array of objects containing a user's favorite volcanoes. The path parameter (email) is required and must be an email that has been registered. Optionally, a path parameter (country) can be used to filter the list to volcanoes in a certain country. This endpoint always returns an error (404) if the user does not exist. On this endpoint, the GET method returns an empty array if the user exists but either does not have any favorited volcanoes, or the user does not have any volcanoes in the favorites from the country specified by the parameter. All users can view each other's list of favorites, and so no authorization is required to access a given user's favorites list.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email addreess of a registered user",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "pls@plsuwu.com"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "Name of a country (does not have to be in the database)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Australia"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of objects containing the id, name and country of volcanoes in a user's favorites.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Abu"
+                                            },
+                                            "country": {
+                                                "type": "string",
+                                                "example": "Japan"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Email in URL parameters does not have a matching account.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserNotFound"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Profile"],
+                "description": "Allows a user to add or delete a volcano using that volcano's ID. Requires authorization with a JWT containing an email matching the specified path such that only the owner of a specified favorites list can make modifications to it. As per the GET method, a 404 status is always returned if the specified user does not exist.",
+                "requestBody": {
+                    "description": "An object containing a volcano's ID and an action (add/delete) to perform on the favorites list using the volcano ID.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "action": {
+                                        "type": "string",
+                                        "enum": ["add", "delete"],
+                                        "example": "add"
+                                    },
+                                    "id": {
+                                        "type": "number",
+                                        "example": 10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email address of a registered user",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "pls@plsuwu.com"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Acknowledges a successful addition to the user's favorites",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Volcano successfully added to favorites."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+
+                    "200": {
+                        "description": "Acknowledges a successful deletion of a volcano from the user's favorites",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Volcano successfully deleted from favorites."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "When adding a volcano, this error is returned if the specified volcano is already in the user's favorites.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot add volcano with ID '{id}': Volcano already in this user's favorites."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User does not have a valid JWT with an email matching the URL parameters.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "When deleting a volcano, this error is returned if the specified volcano cannot be found in the user's favorites. This error is also returned by default if the user in the URL does not match an existing account.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/FavoriteVolcanoNotFound"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/UserNotFound"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

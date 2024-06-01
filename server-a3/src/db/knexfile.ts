@@ -1,7 +1,7 @@
 import { Knex } from 'knex'; // types
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: '../../.env' });
 
 const config: { [key: string]: Knex.Config } = {
     production: {
@@ -11,7 +11,19 @@ const config: { [key: string]: Knex.Config } = {
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
+
+            // do not autocast dates so that javascript does not adjust timezone
+            typeCast: (field: any, next: any) => {
+                if (field.type === 'DATE') {
+                    return field.string();
+                }
+
+                return next();
+            }
         },
+        migrations: {
+            directory: './migrations'
+        }
     },
 };
 

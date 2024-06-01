@@ -17,13 +17,13 @@ export const __VOLCANOID_VOLCANO_NOT_FOUND = {
 };
 
 export const __USER_PROFILE_COLUMNS_UNAUTHORIZED = [
-    'address', 'dateOfBirth'
+    'address',
 ]
 export const __USER_PROFILE_USER_NOT_FOUND = {
     message: 'User not found',
     status: 404,
 };
-export const __USER_PROFILE_COLUMNS_PASSWORD = ['password', 'dateOfBirth'];
+export const __USER_PROFILE_COLUMNS_PASSWORD = ['password'];
 export const __COMMON_JWT_EXPIRED = {
     message: 'JWT token has expired.',
     status: 401,
@@ -83,6 +83,26 @@ export const __AUTH_LOGIN_SUCCESS = {
 export const __COMMON_INVALID_QUERY_PARAM = {
     message: 'Invalid query parameters. Query parameters are not permitted.',
     status: 400,
+};
+
+export const __FAVORITES_ADD_EXISTS = {
+    message: "Cannot add volcano with ID '{{dyn}}': Volcano already in this user's favorites.",
+    status: 400,
+}
+
+export const __FAVORITES_DEL_NOT_EXISTS = {
+    message: "Cannot delete volcano with ID '{{dyn}}': Volcano not in this user's favorites.",
+    status: 404,
+};
+
+export const __FAVORITES_ADD_SUCCESS = {
+    message: "Volcano added to favorites:",
+    status: 201,
+};
+
+export const __FAVORITES_DEL_SUCCESS = {
+    message: "Volcano removed from favorites.",
+    status: 200,
 };
 
 export const __PROFILE_UPDATE_REQUEST_STRING_ONLY = {

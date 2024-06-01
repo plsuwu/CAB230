@@ -8,7 +8,7 @@ export const getCountries = async (
     next: NextFunction
 ) => {
    try {
-        const countries = await Countries.getCountriesList();
+        const countries = await Countries.load();
         return res.status(200).json(countries);
    } catch (err) {
 
