@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# run below if err `ERROR 1273 (HY000) at line 1: Uknown collation: 'uf8mb4_0900_ai_ci'`
+# sed -i 's/utf8mb4_0900_ai_ci/utf8mb4_general_ci/g' volcanoes.sql
+
 MYSQL_PWD="Cab230!" # ahhh its fine
 NVIM_CONFIG_HOME="$HOME/.config/nvim"
 

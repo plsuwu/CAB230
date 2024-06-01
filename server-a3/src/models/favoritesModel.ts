@@ -1,20 +1,16 @@
 import knexConf from '$db/knexfile';
 import { createServerError } from '$src/middleware/errorHandler';
-import { User as TypedUser, FullUser } from '$src/types';
 import { insertDynamic } from '$src/utils/insertDynamic';
 import {
-    __USER_PROFILE_COLUMNS_PASSWORD,
-    __USER_PROFILE_COLUMNS_UNAUTHORIZED,
-    __FAVORITES_DEL_NOT_EXISTS,
-    __FAVORITES_ADD_EXISTS,
+    __AUTH, __FAVORITES
 } from '$utils/constants';
-import { restrictContent } from '$utils/filterRestrictedContent';
 import knexPkg from 'knex';
 export const knex = knexPkg(knexConf.production);
 
 export const Favorites = {
-    load: async (email: string, query?: string) => {
+    load: async (email: string, _query?: string) => { // this works without indicating the query to knex and i dont remember why
 
+        // do a join from the 'data' table based on favorites.volcano - references foreign key `data.id`
         const favorites = await knex('favorites').join('data', 'favorites.volcano', '=', 'data.id')
             .where('favorites.email', email)
             .select('data.id', 'data.name', 'data.country');
@@ -23,37 +19,41 @@ export const Favorites = {
     },
 
     add: async (email: string, volcano: number) => {
+
         const [check] = await knex('favorites').where({ email, volcano });
 
         if (check) {
-            console.log(check);
-            const msg = insertDynamic(__FAVORITES_ADD_EXISTS.message, volcano.toString());
+            // if the volcano exists in the user's favorites, return an error
+            const msg = insertDynamic(__FAVORITES.ADD.EXISTS.message, volcano.toString());
             const err = createServerError(
                 msg,
-                __FAVORITES_ADD_EXISTS.status,
+                __FAVORITES.ADD.EXISTS.status,
             );
 
             return err;
         }
 
-        const _added = await knex('favorites').insert({ email, volcano }).returning('name');
-        return await Favorites.load(email);
+        // return the added volcano name (ignore mysql does not support `.returning()`; just return some value).
+        const added = await knex('favorites').insert({ email, volcano }).returning('name');
+        return added;
     },
 
     delete: async (email: string, volcano: number) => {
         const [check] = await knex('favorites').where({ email, volcano });
 
         if (!check) {
-            console.log(check);
-            const message = insertDynamic(__FAVORITES_DEL_NOT_EXISTS.message, volcano.toString());
+
+            // if the volcano does not exist in the user's favorites, return an error
+            const message = insertDynamic(__FAVORITES.DELETE.NOT_EXISTS.message, volcano.toString());
             const err = createServerError(
                 message,
-                __FAVORITES_DEL_NOT_EXISTS.status,
+                __FAVORITES.DELETE.NOT_EXISTS.status,
             );
 
             return err;
         }
 
+        // return all cols updated in favorites (ignore mysql does not support `.returning()`; just return some value).
         const deleted = await knex('favorites').where({ email, volcano }).del().returning('*');
         return deleted;
     },

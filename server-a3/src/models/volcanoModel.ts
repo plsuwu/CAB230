@@ -1,7 +1,6 @@
 import knexConf from '$db/knexfile';
 import { restrictContent } from '$src/utils/filterRestrictedContent';
-import { __VOLCANO_RESTRICTED_COLUMNS } from '$utils/constants';
-import { getColumnNames } from '$utils/getColumnNames';
+import { __VOLCANOES } from '$utils/constants';
 import knexPkg from 'knex';
 export const knex = knexPkg(knexConf.production);
 
@@ -12,7 +11,7 @@ export const Volcano = {
         if (!auth) {
             const free = await restrictContent(
                 'data',
-                __VOLCANO_RESTRICTED_COLUMNS
+                __VOLCANOES.COLS.RESTRICTED
             );
 
             [rows] = await knex('data').where({ id }).columns(free);

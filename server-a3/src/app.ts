@@ -1,5 +1,4 @@
-import 'module-alias/register';
-// import { addAliases } from 'module-alias';
+import 'module-alias/register'; // reference important directories with `$directory` specifier
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -17,7 +16,7 @@ import favoritesRouter from '$routes/favoritesRouter';
 
 import countryRouter from '$routes/countryRouter';
 import { errorHandler } from '$middleware/errorHandler';
-import * as consts from '$utils/constants';
+import { __SERVER } from '$utils/constants';
 
 dotenv.config();
 const app = express();
@@ -25,12 +24,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// merge defs for custom endpoints into example config
+// merge defs for custom endpoint config with example config
 const swaggerConfigMerged = merge({}, swaggerConfig, customSwaggerConfig);
 
 const swaggerOpts = {
     swaggerDefinition: swaggerConfigMerged,
-    servers: [{ url: consts.__SERVER_URL }],
+    servers: [{ url: __SERVER.URL }],
     apis: ['./src/routes/**/*.ts'],
 };
 

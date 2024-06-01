@@ -7,12 +7,13 @@ export const getCountries = async (
     res: Response,
     next: NextFunction
 ) => {
-   try {
+    try {
+        // call the countries model and return the query result
         const countries = await Countries.load();
         return res.status(200).json(countries);
-   } catch (err) {
-
-       console.error('[!]: Issue during register: ', err);
-       next(err);
-   }
+    } catch (err) {
+        // log unhandled errors
+        console.error('[!]: Issue during countries fetch:', err);
+        next(err);
+    }
 };

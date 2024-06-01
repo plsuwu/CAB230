@@ -6,12 +6,13 @@ export const getStudentDetails = async (
     res: Response,
     next: NextFunction
 ) => {
-   try {
-       const { name, student_number } = await Me.load();
+    try {
+        // loaded from dotenv
+        const { name, student_number } = await Me.load();
         return res.status(200).json({ name, student_number });
-   } catch (err) {
-
-       console.error('[!]: Issue during student details fetch: ', err);
-       next(err);
-   }
+    } catch (err) {
+        // log unhandled errors
+        console.error('[!]: Issue during student details fetch: ', err);
+        next(err);
+    }
 };
