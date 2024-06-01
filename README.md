@@ -2,6 +2,8 @@
 
 > nothing but hate for any and all react design patterns.
 
+these two projects are only thematically interlinked and arent supposed to actually work together.
+
 ## Client:
 
 - Vite + React + Typescript
