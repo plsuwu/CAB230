@@ -1,25 +1,22 @@
-# CAB230 | React Client + Express Server
+# CAB230 - Web Computing
 
-> nothing but hate for any and all react design patterns.
+code submitted for assignments two and three as part of [CAB230](https://www.qut.edu.au/study/unit?unitCode=CAB230).
 
-these two projects are only thematically interlinked and arent supposed to actually work together.
+> not too fond of react and react-like patterns but at least its not c#.
 
-## Client:
+note that these two projects are only *thematically* connected such that the client and server are not actually functionally tied, though the API used in the client would likely offer almost identical functionality.
 
+## A2 - Clientside:
+
+> i think the clientside source code is a little messy and, given more time, would liked to have refactored large sections of code (i may still posthumously do so).
+ 
 - Vite + React + Typescript
 - React Router
 - TailwindCSS
 
-**caching/memoization**
-
-the set of utils in `src/lib/store/` encapsulates a half-baked memoization function to cache API data into a shallow cache.
-called through a neat `useStore` hook, which functions a a little bit like a `useState` hook mixed with Svelte's `$lib/store`.
-
-its not perfect but it should be generalized and robust enough that it can gracefully handle this application's use case
-and make my mess of fetch/post operations less gross to look at.
-
-## Server:
+## A3 - Serverside:
 
 - Express + Typescript also
-- MariaDB/Knex
-- Zod (largely unnecessary but I think the Zod schema are cleaner than manually implementing checks one-by-one)
+- MariaDB (or MySQL) + Knex
+- Zod (largely unnecessary - I wanted to try Zod out and I thought it wound up being a pretty tidy way to handle bad user input)
+- Swagger documentation served on the root endpoint
