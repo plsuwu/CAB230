@@ -20,8 +20,8 @@ export const __SERVER = {
         KEY: process.env.KEY_FILE as string,
     },
 
-    PORT: 3000,
-    URL: 'http://localhost:3000',
+    PORT: 8000,
+    URL: 'https://localhost:8000',
 };
 
 export const __VOLCANO = {

@@ -2,7 +2,7 @@ import 'module-alias/register'; // reference important directories with `$direct
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import merge from 'lodash.merge';
+import _ from 'lodash';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerConfig from '$src/swagger.json';
@@ -25,7 +25,7 @@ app.use(cors());
 app.use(express.json());
 
 // merge defs for custom endpoint config with example config
-const swaggerConfigMerged = merge({}, swaggerConfig, customSwaggerConfig);
+const swaggerConfigMerged = _.merge({}, swaggerConfig, customSwaggerConfig);
 
 const swaggerOpts = {
     swaggerDefinition: swaggerConfigMerged,
@@ -47,4 +47,4 @@ app.use('/countries', countryRouter);
 
 app.use(errorHandler);
 
-export default app;
+export default app

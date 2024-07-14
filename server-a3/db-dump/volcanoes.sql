@@ -17,18 +17,11 @@ USE `volcanoes`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- create the DB user and assign privileges
-
--- CREATE USER 'www-data'@'localhost' IDENTIFIED BY 'landing-sixtieth-catapult';
--- GRANT ALL PRIVILEGES ON volcanoes.* TO 'www-data'@'localhost';
--- FLUSH PRIVILEGES;
-
 --
 -- Table structure for table `data`
 --
 
 -- create the db user
-
 DROP USER IF EXISTS 'www-data'@'localhost';
 CREATE USER 'www-data'@'localhost' IDENTIFIED BY 'landing-sixtieth-catapult';
 GRANT ALL PRIVILEGES ON volcanoes.* TO 'www-data'@'localhost';
