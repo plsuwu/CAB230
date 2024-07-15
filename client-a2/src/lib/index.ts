@@ -14,4 +14,4 @@ export { classNames, sleep, nameBuilder } from './utils/utils';
 export { storeToken, parseTokenInfo } from '@/lib/utils/token';
 
 // export const API_URL = 'http://4.237.58.241:3000';
-export const API_URL = 'https://172.20.0.3:8000';
+export const API_URL = `https://localhost:8080`;

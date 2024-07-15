@@ -1,31 +1,15 @@
 FROM node:current AS base
-WORKDIR /app/server
+WORKDIR /server
 
 RUN apt-get update -y && apt-get install ncat -y
 
-# INSTALL DEPENDENCIES FROM LOCKFILE
-FROM base AS install
-RUN mkdir -p /tmp/server/install
-COPY package.json package-lock.json /tmp/server/install/
-RUN cd /tmp/server/install && npm ci
-
-
-# BUILD CONTAINER CONTAINER IMAGE FROM SOURCE
-FROM base AS build
-COPY --from=install /tmp/server/install/node_modules node_modules
 COPY . .
-
-ENV NODE_ENV=production
+COPY .env .
+RUN npm install
 RUN npm run build
+RUN chmod +x /server/start.sh
 
-# COPY MODULES AND SOURCE TO FINAL IMAGE
-FROM base AS release
-COPY --from=install /tmp/server/install/node_modules node_modules
-COPY --from=build /app/server .
-COPY start.sh .
-RUN chmod +x /app/server/start.sh
-
-EXPOSE 8000/tcp
+EXPOSE 8080/tcp
 ENTRYPOINT [ "./start.sh" ]
 
 

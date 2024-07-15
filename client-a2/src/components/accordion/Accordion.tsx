@@ -78,10 +78,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
 	return (
 		<>
-			{/* replace with actual loader animation or whatever */}
-			{isLoading && <div>LOADING placeholder</div>}
-			{/* ------------------------------------------------ */}
-
+			{isLoading && <div>....</div>}
 			{!isLoading && pages && (
 				<>
 					<div className='flex flex-col content-center items-center justify-center overflow-hidden transition-all duration-300'>

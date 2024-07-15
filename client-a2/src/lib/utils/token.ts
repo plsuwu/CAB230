@@ -44,7 +44,7 @@ export const parseTokenInfo = (): string => {
                     const checkTokenExpired =
                         new Date(decoded.exp * 1000).getTime() - new Date(Date.now()).getTime();
                     if (checkTokenExpired < 0) {
-                        console.error('expired token', jwt.token);
+                        console.error('[ERR]: while parsing token: expired token found.');
                         return '';
                     }
 

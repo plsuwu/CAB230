@@ -7,13 +7,9 @@
  * @param {number} [pageLength=13] - The number of items per page; defaults to 13
  * @returns {string[][]} - A 2D array where each subarray contains the items for a specific page
  */
-export const paginate = (array: string[], pageLength?: number | undefined): string[][] => {
+export const paginate = (array: string[], pageLength: number = 13): string[][] => {
     if (!array || array.length < 1) {
         return [['No results']];
-    }
-
-    if (!pageLength) {
-        pageLength = 13;
     }
 
     let finalPage = Math.max(0, Math.floor(array.length / pageLength));
